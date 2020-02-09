@@ -5,7 +5,7 @@
       duration=1000
       mode="out-in"
       name="toggle-slide">
-      <router-view id="view" :setUniformTarget="setUniformTarget"/>
+      <router-view id="view" :setUniformTarget="setUniformTarget" :setSceneHoverTarget="setSceneHoverTarget"/>
     </transition>
     <canvas id="bg-animation-canvas"/>
   </div>
@@ -29,20 +29,36 @@ export default {
   },
   data() {
     return {
-      sceneIndex: this.getSceneIndex(this.$route),
+      sceneIndex: null,
       sandbox: null,
       canvas: null,
       uniforms: {
         moon_rows: 0,
         moon_columns: 0,
-        u_hover_main_about_me: 0,
-        u_hover_main_my_work: 0,
+        u_hover_main: {
+          x: 0,
+          y: 0
+        },
+        u_hover_about_me: {
+          x: 0,
+          y: 0
+        },
+        u_hover_my_work: {
+          x: 0,
+          y: 0
+        },
+        u_scene_index: {
+          x: 0,
+          y: 0,
+          z: 0
+        },
         u_mouse: {
           x: 0,
           y: 0
         }
       }
     }
+    
   },
   mounted() {
     this.canvas = document.getElementById("bg-animation-canvas")
@@ -70,6 +86,8 @@ export default {
       
       this.uniforms.u_mouse.y = e.clientY; 
     })
+
+    this.getSceneIndex(this.$route);
   // this.sandbox.load(string_frag_code, string_vert_code)
   },
   methods: {
@@ -78,27 +96,72 @@ export default {
       this.uniforms.moon_rows = Math.floor(this.canvas.height/moon_size);
       this.uniforms.moon_columns = Math.floor(this.canvas.width/moon_size);
       this.sandbox.setUniform("moon_grid",this.uniforms.moon_columns, this.uniforms.moon_rows); 
-      this.sandbox.setUniform("u_scene_number", this.sceneIndex);
+      this.sandbox.setUniform(
+        "u_hover_main",
+        this.uniforms.u_hover_main.x,
+        this.uniforms.u_hover_main.y
+      )
+      this.sandbox.setUniform(
+        "u_hover_my_work",
+        this.uniforms.u_hover_my_work.x,
+        this.uniforms.u_hover_my_work.y
+      )
+      this.sandbox.setUniform(
+        "u_hover_about_me",
+        this.uniforms.u_hover_about_me.x,
+        this.uniforms.u_hover_about_me.y
+      )
+      this.sandbox.setUniform(
+        "u_scene_index", 
+        this.uniforms.u_scene_index.x, 
+        this.uniforms.u_scene_index.y, 
+        this.uniforms.u_scene_index.z
+      );
       this.sandbox.setUniform("u_mouse_pos", this.uniforms.u_mouse.x, this.uniforms.u_mouse.y);
       // console.log(this.sandbox.uniforms.u_mouse_pos && this.sandbox.uniforms.u_mouse_pos.value);
 // 
       // console.log(this.sandbox.uniforms.u_mouse && this.sandbox.uniforms.u_mouse.value);
       this.sandbox.setUniform("u_resolution", this.canvas.width, this.canvas.height);
-      this.sandbox.setUniform("u_hover_main_about_me", this.uniforms.u_hover_main_about_me)
-      this.sandbox.setUniform("u_hover_main_my_work", this.uniforms.u_hover_main_my_work)
       requestAnimationFrame(this.setUniforms)
     },
     getSceneIndex(route) {
       let page = route.name;
       console.log(page)
+      const SCENE_TRANSITION_TIME = 1.8;
 
       if(page.indexOf('about') >= 0) {
+        gsap.to(this.$data.uniforms.u_scene_index, SCENE_TRANSITION_TIME, {
+          ease:Power1.easeOut, 
+          x: 0,
+          y: 0,
+          z: 1
+        }, 0.2)
         return 1;
       } else if (page.indexOf('my-work') >= 0) {
+        gsap.to(this.$data.uniforms.u_scene_index, SCENE_TRANSITION_TIME, {
+          ease:Power1.easeOut, 
+          x: 0,
+          y: 1,
+          z: 0
+        }, 0.2)
         return 2;
       } else {
+        gsap.to(this.$data.uniforms.u_scene_index, SCENE_TRANSITION_TIME, {
+          ease:Power1.easeOut, 
+          x: 1,
+          y: 0,
+          z: 0
+        }, 0.2)
         return 0;
+        
       }
+    },
+    setSceneHoverTarget(hover_page, x, y) {
+      gsap.to(this.$data.uniforms[hover_page], .5, {
+        ease:Power1.easeOut, 
+        x,
+        y
+      }, 0.2)
     },
     setUniformTarget(target_uniform, target) {
       console.log('hiiii', this.$data.uniforms, target_uniform, target)

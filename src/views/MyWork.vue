@@ -1,8 +1,18 @@
 <template>
   <div class="page--my-work">
     <div class="nav left short">
-      <internal-link to="/" text="home" theme="dark" />
-      <internal-link to="/about" text="about me" theme="dark" />
+      <internal-link 
+        to="/" 
+        text="home" 
+        theme="dark" 
+        :onHover="hoverHome" 
+        :clearHover="clearHome"/>
+      <internal-link 
+        to="/about" 
+        text="about me" 
+        theme="dark" 
+        :onHover="hoverAbout" 
+        :clearHover="clearAbout"/>
     </div>
     <div class="text-container">
       <h3 class="right short">my work</h3>
@@ -32,9 +42,24 @@ import InternalLink from "../components/InternalLink";
 
 export default {
   name: "MyWork",
+  props: ["setSceneHoverTarget"],
   components: {
     ExternalLink,
     InternalLink
+  },
+  methods: {
+    hoverAbout() {
+        this.setSceneHoverTarget('u_hover_my_work', 1, 0)
+    },
+    clearAbout() {
+        this.setSceneHoverTarget('u_hover_my_work', 0, 0)
+    },
+    hoverHome() {
+        this.setSceneHoverTarget('u_hover_my_work', 0, 1)
+    },
+    clearHome() {
+        this.setSceneHoverTarget('u_hover_my_work', 0, 0)
+    }
   }
 };
 </script>

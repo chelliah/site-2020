@@ -26,7 +26,7 @@
 import InternalLink from '../components/InternalLink';
 export default {
   name: "Home",
-  props: ["setUniformTarget"],
+  props: ["setSceneHoverTarget"],
   components: {
       InternalLink
   },
@@ -35,20 +35,18 @@ export default {
       this.clearMyWork();
   },
   methods: {
-      hoverAbout() {
-          console.log('hii')
-        this.setUniformTarget('u_hover_main_about_me', 1.)
-      },
-      clearAbout() {
-          this.setUniformTarget('u_hover_main_about_me', 0.)
-      },
-      hoverMyWork() {
-          console.log('hii')
-        this.setUniformTarget('u_hover_main_my_work', 1.)
-      },
-      clearMyWork() {
-          this.setUniformTarget('u_hover_main_my_work', 0.)
-      }
+    hoverAbout() {
+        this.setSceneHoverTarget('u_hover_main', 1, 0)
+    },
+    clearAbout() {
+        this.setSceneHoverTarget('u_hover_main', 0, 0)
+    },
+    hoverMyWork() {
+        this.setSceneHoverTarget('u_hover_main', 0, 1)
+    },
+    clearMyWork() {
+        this.setSceneHoverTarget('u_hover_main', 0, 0)
+    }
   }
 };
 </script>
