@@ -2,7 +2,7 @@
   <div
     class="internal-link--container"
     v-on:mouseover="setHover"
-    v-on:mouseleave="clearHover">
+    v-on:mouseleave="endHover">
       <router-link 
         :class="className" 
         :style="textShadow"
@@ -16,14 +16,20 @@
 import gsap, {Power3} from 'gsap';
 export default {
   name: "InternalLink",
-  props: ["to", "text", "theme"],
+  props: ["to", "text", "theme", "onHover", "clearHover"],
   methods: {
       setHover() {
           this.isHovering = true;
+          if(this.onHover) {
+              this.onHover();
+          }
       },
-      clearHover() {
+      endHover() {
           console.log('bi')
           this.isHovering = false;
+          if(this.clearHover) {
+              this.clearHover();
+          }
       }
 
   },

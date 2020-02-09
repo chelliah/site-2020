@@ -3,8 +3,20 @@
       <h1 id="hi-title" class="agrandir--grand">hi. im erin.</h1>
       <h3 id="subtitle" class="agrandir--grand">I like to make things, <br/> mostly with code</h3>
       <div id="home--links-container">
-          <internal-link to='/about' text="About me" theme="dark" id='home-link--about'/>
-          <internal-link to='/my-work' text="See my work" theme="dark" id='home-link--my-work'/>
+          <internal-link 
+            to='/about' 
+            text="About me" 
+            theme="dark" 
+            :onHover="hoverAbout" 
+            :clearHover="clearAbout"
+            id='home-link--about'/>
+          <internal-link 
+            to='/my-work' 
+            text="See my work" 
+            theme="dark" 
+            :onHover="hoverMyWork"
+            :clearHover="clearMyWork"
+            id='home-link--my-work'/>
 
       </div>
   </div>
@@ -14,8 +26,29 @@
 import InternalLink from '../components/InternalLink';
 export default {
   name: "Home",
+  props: ["setUniformTarget"],
   components: {
       InternalLink
+  },
+  beforeDestroy() {
+      this.clearAbout();
+      this.clearMyWork();
+  },
+  methods: {
+      hoverAbout() {
+          console.log('hii')
+        this.setUniformTarget('u_hover_main_about_me', 1.)
+      },
+      clearAbout() {
+          this.setUniformTarget('u_hover_main_about_me', 0.)
+      },
+      hoverMyWork() {
+          console.log('hii')
+        this.setUniformTarget('u_hover_main_my_work', 1.)
+      },
+      clearMyWork() {
+          this.setUniformTarget('u_hover_main_my_work', 0.)
+      }
   }
 };
 </script>
@@ -64,7 +97,7 @@ export default {
 
 #home-link--my-work {
     position: absolute;
-    left: calc(20% + 300px);
+    left: 60%;
     top: 60vh;
   transition: opacity 0.6s ease-out, transform 0.4s ease-out;
     transition-delay: 0.2s;

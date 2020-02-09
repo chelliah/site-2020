@@ -17,18 +17,23 @@ export default {
       this.isHovering = true;
 
       if(!this.dataColorsInterval) {
-
-         this.dataColorsInterval = setInterval(this.setDataColors, 300)
+          this.dataColorsInterval = 0;
+          requestAnimationFrame(this.setDataColors);
       }
     },
     clearHover() {
         this.clearDataColors()
     },
     setDataColors() {
-      this.dataColors = this.text.split("").map(() =>  colors[Math.floor(Math.random()*colors.length)])
+        if(this.dataColorsInterval == null) return;
+        if(this.dataColorsInterval % 20 == 0) {
+            this.dataColors = this.text.split("").map(() =>  colors[Math.floor(Math.random()*colors.length)])
+            
+        }
+        this.dataColorsInterval += 1;
+        requestAnimationFrame(this.setDataColors);
     },
     clearDataColors () {
-      clearInterval(this.dataColorsInterval);
       this.dataColorsInterval = null;
       this.dataColors = this.text.split("").map(() =>  "transparent")
     }

@@ -1,43 +1,96 @@
 <template>
-  <div id="app" :style="`background-color: ${bgColor};`">
+  <div id="app" >
 
     <transition
       duration=1000
       mode="out-in"
       name="toggle-slide">
-      <router-view id="view" />
+      <router-view id="view" :setUniformTarget="setUniformTarget"/>
     </transition>
+    <canvas id="bg-animation-canvas"/>
   </div>
 
 </template>
 
 <script>
-// import gsap from 'gsap';
+import gsap, {Power1} from 'gsap';
+import GlslCanvas from 'glslCanvas'
+import glslify from 'glslify';
+// import vertexShader from '../assets/shaders/vertex.glsl';
+import fragmentShader from '../assets/shaders/fragment.glsl';
+
 export default {
   name: "App",
   watch: {
     $route(to) {
       console.log(to)
-      this.bgColor = this.getColor(to)
+      this.bgColor = this.getSceneIndex(to)
     }
   },
   data() {
     return {
-      bgColor: this.getColor(this.$route)
+      sceneIndex: this.getSceneIndex(this.$route),
+      sandbox: null,
+      canvas: null,
+      uniforms: {
+        moon_rows: 0,
+        moon_columns: 0,
+        u_hover_main_about_me: 0,
+        u_hover_main_my_work: 0
+      }
     }
   },
+  mounted() {
+    this.canvas = document.getElementById("bg-animation-canvas")
+    let size = document.documentElement.getBoundingClientRect();
+
+    console.log(size)
+    this.canvas.width =  window.innerWidth;
+    this.canvas.height = window.innerHeight;
+    this.sandbox = new GlslCanvas(this.canvas);
+    this.sandbox.load(glslify(fragmentShader));
+
+    this.setUniforms();
+
+    window.addEventListener('resize', () => {
+
+      this.canvas.width =  window.innerWidth;
+      this.canvas.height = window.innerHeight;
+          // this.sandbox.load(glslify(fragmentShader));
+      this.setUniforms();
+
+    })
+  // this.sandbox.load(string_frag_code, string_vert_code)
+  },
   methods: {
-    getColor(route) {
+    setUniforms() {
+      let moon_size = 40;
+      this.uniforms.moon_rows = Math.floor(this.canvas.height/moon_size);
+      this.uniforms.moon_columns = Math.floor(this.canvas.width/moon_size);
+      this.sandbox.setUniform("moon_grid",this.uniforms.moon_columns, this.uniforms.moon_rows); 
+      this.sandbox.setUniform("u_scene_number", this.sceneIndex);
+      this.sandbox.setUniform("u_hover_main_about_me", this.uniforms.u_hover_main_about_me)
+      this.sandbox.setUniform("u_hover_main_my_work", this.uniforms.u_hover_main_my_work)
+      requestAnimationFrame(this.setUniforms)
+    },
+    getSceneIndex(route) {
       let page = route.name;
       console.log(page)
 
       if(page.indexOf('about') >= 0) {
-        return 'green';
+        return 1;
       } else if (page.indexOf('my-work') >= 0) {
-        return 'blue';
+        return 2;
       } else {
-        return 'red';
+        return 0;
       }
+    },
+    setUniformTarget(target_uniform, target) {
+      console.log('hiiii', this.$data.uniforms, target_uniform, target)
+      gsap.to(this.$data.uniforms, .5, {
+        ease:Power1.easeOut, 
+        [target_uniform]: target
+      }, 0.2)
     }
   }
 };
@@ -47,6 +100,15 @@ export default {
 
 body {
   margin: 0;
+}
+
+#bg-animation-canvas {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 #app {

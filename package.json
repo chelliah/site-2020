@@ -10,11 +10,13 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "glslCanvas": "^0.1.7",
+    "glslify": "^7.0.0",
     "gsap": "^3.1.1",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
-    "vue-router": "^3.1.5"
+    "vue-router": "^3.1.5",
+    "webpack-glsl-loader": "^1.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
