@@ -72,7 +72,7 @@ float circle(in vec2 _st,in float _radius){
 
 float circle_at_pos_noise(in vec2 _st, in float _radius, in float u_time){
     vec2 dist=_st;
-    float d = noise(rotate2D(_st, u_time/60. + 123.) * sin( u_time/45. + 932. + u_mouse_pos.x/200. + u_mouse_pos.y/200.)*8. + 9999.4)*1.5;
+    float d = noise(rotate2D(_st, u_time/60. + 123.) * sin( u_time/45. + 932. + u_mouse_pos.x/400. + u_mouse_pos.y/400.)*8. + 9999.4)*1.5;
 
     float m = noise(rotate2D(_st, u_mouse_pos.x*u_mouse_pos.y/(u_resolution.x*u_resolution.y)/20.*_radius) + cos( u_time/73. - 932.)*8. + 9999.4)*2.5;
     // _radius = d;
