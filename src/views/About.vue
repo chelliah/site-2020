@@ -1,13 +1,13 @@
 <template>
   <div class="page--about">
     <div class="nav left short">
-      <internal-link to="/" text="home" theme="light" :onHover="hoverHome" :clearHover="clearHome" />
+      <internal-link to="/" text="home" theme="light" :onHover="hoverHome" :clearHover="clearHover" />
       <internal-link
         to="/my-work"
         text="see my work"
         theme="light"
         :onHover="hoverMyWork"
-        :clearHover="clearMyWork"
+        :clearHover="clearHover"
       />
     </div>
     <div class="text-container">
@@ -31,18 +31,18 @@ export default {
   components: {
     InternalLink
   },
+  beforeDestroy() {
+      this.clearHover();
+  },
   methods: {
     hoverMyWork() {
       this.setSceneHoverTarget("u_hover_about_me", 1, 0);
     },
-    clearMyWork() {
+    clearHover() {
       this.setSceneHoverTarget("u_hover_about_me", 0, 0);
     },
     hoverHome() {
       this.setSceneHoverTarget("u_hover_about_me", 0, 1);
-    },
-    clearHome() {
-      this.setSceneHoverTarget("u_hover_about_me", 0, 0);
     }
   }
 };

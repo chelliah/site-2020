@@ -17,15 +17,18 @@ precision highp float;
 #define OLIVE vec3(.62, .682, .384) //62% red, 68.2% green and 38.4% blue
 #define YELLOW vec3(.906, .82, .502) //f 90.6% red, 82% green and 50.2% blue
 #define MINT vec3(.671, .827, .529) //67.1% red, 82.7% green and 52.9% blue
+#define MAGNIFIED_SIZE 25.
 
 uniform vec2 u_resolution;
 uniform float u_time;
 uniform vec2 u_mouse_pos;
 uniform vec2 moon_grid;
-uniform vec3 u_scene_index;
+uniform float u_scene;
+uniform vec3 u_scene_transition;
 uniform vec2 u_hover_main;
 uniform vec2 u_hover_about_me;
 uniform vec2 u_hover_my_work;
+
 
 vec2 rotate2D(vec2 _st,float _angle){
     _st-=.5;
@@ -69,7 +72,7 @@ float circle(in vec2 _st,in float _radius){
 
 float circle_at_pos_noise(in vec2 _st, in float _radius, in float u_time){
     vec2 dist=_st;
-    float d = noise(rotate2D(_st, u_time/30. + 123.) * sin( u_time/20. + 932. + u_mouse_pos.x/u_mouse_pos.y/20.)*8. + 9999.4)*1.5;
+    float d = noise(rotate2D(_st, u_time/30. + 123.) * sin( u_time/20. + 932. + u_mouse_pos.x/200. + u_mouse_pos.y/200.)*8. + 9999.4)*1.5;
 
     float m = noise(rotate2D(_st, u_mouse_pos.x*u_mouse_pos.y/(u_resolution.x*u_resolution.y)/20.*_radius) + cos( u_time/20. - 932.)*8. + 9999.4)*2.5;
     // _radius = d;
@@ -336,8 +339,8 @@ vec3 render_about_me_scene(in vec2 st) {
     dist *= u_resolution.x/u_resolution.y;
 
     float mouse_pct = length(dist);
-    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_about_me.y + u_scene_index.x*30., u_time);
-    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_about_me.x+ u_scene_index.y*30., u_time);
+    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_about_me.y + u_scene_transition.x*MAGNIFIED_SIZE, u_time);
+    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_about_me.x+ u_scene_transition.y*MAGNIFIED_SIZE, u_time);
     vec3 color=draw_tie_dye(st);
 
     if(c1 > 0.) {
@@ -359,8 +362,8 @@ vec3 render_my_work_scene(in vec2 st) {
     dist *= u_resolution.x/u_resolution.y;
 
     float mouse_pct = length(dist);
-    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_my_work.y + u_scene_index.x*30., u_time);
-    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_my_work.x+ u_scene_index.z*30., u_time);
+    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_my_work.y + u_scene_transition.x*MAGNIFIED_SIZE, u_time);
+    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_my_work.x+ u_scene_transition.z*MAGNIFIED_SIZE, u_time);
     vec3 color=draw_checkerboard(st);
 
     if(c1 > 0.) {
@@ -381,8 +384,8 @@ vec3 render_scene_main(in vec2 st) {
     dist *= u_resolution.x/u_resolution.y;
 
     float mouse_pct = length(dist);
-    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_main.x + u_scene_index.z*30., u_time);
-    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_main.y + u_scene_index.y*30., u_time);
+    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_main.x + u_scene_transition.z*MAGNIFIED_SIZE, u_time);
+    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_main.y + u_scene_transition.y*MAGNIFIED_SIZE, u_time);
     vec3 color=draw_moons(st);
 
     if(c1 > 0.) {
@@ -400,20 +403,20 @@ void main(){
     vec2 st=gl_FragCoord.xy/u_resolution.xy;
     vec3 color = vec3(0.);
 
-    vec3 scene1 = render_scene_main(st) * u_scene_index.x;
+    if(u_scene == 1.) {
+        color = render_about_me_scene(st);
+    } else if (u_scene == 2.) {
+        color = render_my_work_scene(st);
+    } else {
+        color = render_scene_main(st);
+    }
 
-    vec3 scene2 = render_about_me_scene(st) * u_scene_index.z;
+    // vec3 scene1 = render_scene_main(st) * u_scene_transition.x;
 
-    vec3 scene3 = render_my_work_scene(st) * u_scene_index.y;
+    // vec3 scene2 = render_about_me_scene(st) * u_scene_transition.z;
 
-    // if(u_scene_index.z > .0) {
-    //     color += mix(render_scene_main(st), render_about_me_scene(st), u_scene_index.z);
-    // } else if (u_scene_index.y > 0.) {
-    //     color += mix(render_scene_main(st), render_my_work_scene(st), u_scene_index.y);
-    // } else {
-    //  color += render_scene_main(st);
-    // }
-    color = scene1 + scene2 + scene3;
+    // vec3 scene3 = render_my_work_scene(st) * u_scene_transition.y;
+    // color = scene1 + scene2 + scene3;
 
 
   

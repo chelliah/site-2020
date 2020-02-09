@@ -6,13 +6,13 @@
         text="home" 
         theme="dark" 
         :onHover="hoverHome" 
-        :clearHover="clearHome"/>
+        :clearHover="clearHover"/>
       <internal-link 
         to="/about" 
         text="about me" 
         theme="dark" 
         :onHover="hoverAbout" 
-        :clearHover="clearAbout"/>
+        :clearHover="clearHover"/>
     </div>
     <div class="text-container">
       <h3 class="right short">my work</h3>
@@ -47,18 +47,18 @@ export default {
     ExternalLink,
     InternalLink
   },
+  beforeDestroy() {
+      this.clearHover()
+  },
   methods: {
     hoverAbout() {
         this.setSceneHoverTarget('u_hover_my_work', 1, 0)
     },
-    clearAbout() {
+    clearHover() {
         this.setSceneHoverTarget('u_hover_my_work', 0, 0)
     },
     hoverHome() {
         this.setSceneHoverTarget('u_hover_my_work', 0, 1)
-    },
-    clearHome() {
-        this.setSceneHoverTarget('u_hover_my_work', 0, 0)
     }
   }
 };

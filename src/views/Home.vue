@@ -8,14 +8,14 @@
             text="About me" 
             theme="dark" 
             :onHover="hoverAbout" 
-            :clearHover="clearAbout"
+            :clearHover="clearHover"
             id='home-link--about'/>
           <internal-link 
             to='/my-work' 
             text="See my work" 
             theme="dark" 
             :onHover="hoverMyWork"
-            :clearHover="clearMyWork"
+            :clearHover="clearHover"
             id='home-link--my-work'/>
 
       </div>
@@ -31,21 +31,17 @@ export default {
       InternalLink
   },
   beforeDestroy() {
-      this.clearAbout();
-      this.clearMyWork();
+      this.clearHover();
   },
   methods: {
     hoverAbout() {
         this.setSceneHoverTarget('u_hover_main', 1, 0)
     },
-    clearAbout() {
+    clearHover() {
         this.setSceneHoverTarget('u_hover_main', 0, 0)
     },
     hoverMyWork() {
         this.setSceneHoverTarget('u_hover_main', 0, 1)
-    },
-    clearMyWork() {
-        this.setSceneHoverTarget('u_hover_main', 0, 0)
     }
   }
 };
