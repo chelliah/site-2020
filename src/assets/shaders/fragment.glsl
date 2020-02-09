@@ -17,7 +17,7 @@ precision highp float;
 #define OLIVE vec3(.62, .682, .384) //62% red, 68.2% green and 38.4% blue
 #define YELLOW vec3(.906, .82, .502) //f 90.6% red, 82% green and 50.2% blue
 #define MINT vec3(.671, .827, .529) //67.1% red, 82.7% green and 52.9% blue
-#define MAGNIFIED_SIZE 25.
+#define MAGNIFIED_SIZE 35.
 
 uniform vec2 u_resolution;
 uniform float u_time;
@@ -72,9 +72,9 @@ float circle(in vec2 _st,in float _radius){
 
 float circle_at_pos_noise(in vec2 _st, in float _radius, in float u_time){
     vec2 dist=_st;
-    float d = noise(rotate2D(_st, u_time/30. + 123.) * sin( u_time/20. + 932. + u_mouse_pos.x/200. + u_mouse_pos.y/200.)*8. + 9999.4)*1.5;
+    float d = noise(rotate2D(_st, u_time/60. + 123.) * sin( u_time/45. + 932. + u_mouse_pos.x/200. + u_mouse_pos.y/200.)*8. + 9999.4)*1.5;
 
-    float m = noise(rotate2D(_st, u_mouse_pos.x*u_mouse_pos.y/(u_resolution.x*u_resolution.y)/20.*_radius) + cos( u_time/20. - 932.)*8. + 9999.4)*2.5;
+    float m = noise(rotate2D(_st, u_mouse_pos.x*u_mouse_pos.y/(u_resolution.x*u_resolution.y)/20.*_radius) + cos( u_time/73. - 932.)*8. + 9999.4)*2.5;
     // _radius = d;
     dist *= d;
     dist *= m;
