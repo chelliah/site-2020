@@ -225,7 +225,7 @@ vec3 draw_tie_dye(in vec2 st){
     vec3 color=BROWN_1;
     
     // float nz = noise((ipos * u_time/20. + flr)/5. + u_time/20.);
-    float nz=noise(rotate2D(ipos+flr,PI/1.421*(u_time+9345.435)/-50.+20.)/32./5.+u_time/60.)+noise(rotate2D(ipos+flr,PI/1.421*(u_time+12323.412)/150.+12123.12)/32.+u_time/18.)+noise(rotate2D(ipos+flr,PI/1.421+(sin(u_time/300.)+u_time/600.+12323.412)/-80.+12123.12)/32.+u_time/18.)
+    float nz=noise(rotate2D(ipos+flr,PI/1.421*(u_time+9345.435)/-34.+20.)/32./5.+u_time/60.)+noise(rotate2D(ipos+flr,PI/1.421*(u_time+12323.412)/50.+12123.12)/32.+u_time/18.)+noise(rotate2D(ipos+flr,PI/1.421+(sin(u_time/300.)+u_time/600.+12323.412)/-80.+12123.12)/32.+u_time/18.)
     ;
     
     //    float pct = smoothstep(1.09, 1.1, nz);
@@ -339,8 +339,9 @@ vec3 render_about_me_scene(in vec2 st) {
     dist *= u_resolution.x/u_resolution.y;
 
     float mouse_pct = length(dist);
-    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_about_me.y + u_scene_transition.x*MAGNIFIED_SIZE, u_time);
-    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_about_me.x+ u_scene_transition.y*MAGNIFIED_SIZE, u_time);
+    float sz = MAGNIFIED_SIZE * (u_resolution.x + u_resolution.y)/1000.;
+    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_about_me.y + u_scene_transition.x*sz, u_time);
+    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_about_me.x+ u_scene_transition.y*sz, u_time);
     vec3 color=draw_tie_dye(st);
 
     if(c1 > 0.) {
@@ -362,8 +363,10 @@ vec3 render_my_work_scene(in vec2 st) {
     dist *= u_resolution.x/u_resolution.y;
 
     float mouse_pct = length(dist);
-    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_my_work.y + u_scene_transition.x*MAGNIFIED_SIZE, u_time);
-    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_my_work.x+ u_scene_transition.z*MAGNIFIED_SIZE, u_time);
+
+    float sz = MAGNIFIED_SIZE * (u_resolution.x + u_resolution.y)/1000.;
+    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_my_work.y + u_scene_transition.x*sz, u_time);
+    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_my_work.x+ u_scene_transition.z*sz, u_time);
     vec3 color=draw_checkerboard(st);
 
     if(c1 > 0.) {
@@ -384,8 +387,9 @@ vec3 render_scene_main(in vec2 st) {
     dist *= u_resolution.x/u_resolution.y;
 
     float mouse_pct = length(dist);
-    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_main.x + u_scene_transition.z*MAGNIFIED_SIZE, u_time);
-    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_main.y + u_scene_transition.y*MAGNIFIED_SIZE, u_time);
+    float sz = MAGNIFIED_SIZE * (u_resolution.x + u_resolution.y)/1000.;
+    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_main.x + u_scene_transition.z*sz, u_time);
+    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_main.y + u_scene_transition.y*sz, u_time);
     vec3 color=draw_moons(st);
 
     if(c1 > 0.) {
