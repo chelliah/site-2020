@@ -1,0 +1,49 @@
+@font-face {
+    font-family: "Agrandir Wide";
+    src: url("../assets/fonts/Agrandir-WideBlackItalic.woff") format("woff"), url("../assets/fonts/Agrandir-WideBlackItalic.woff2") format("woff2"), url("../assets/fonts/Agrandir-WideBlackItalic.eot") format("eot"), url("../assets/fonts/Agrandir-WideBlackItalic.otf") format("otf"), url("../assets/fonts/Agrandir-WideBlackItalic.svg") format("svg");
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Agrandir Wide";
+    src: url("../assets/fonts/Agrandir-WideLight.woff") format("woff"), url("../assets/fonts/Agrandir-WideLight.woff2") format("woff2"), url("../assets/fonts/Agrandir-WideLight.eot") format("eot"), url("../assets/fonts/Agrandir-WideLight.otf") format("otf"), url("../assets/fonts/Agrandir-WideLight.svg") format("svg");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Agrandir Grand";
+    src: url("../assets/fonts/Agrandir-Grand.woff") format("woff"), url("../assets/fonts/Agrandir-Grand.woff2") format("woff2"), url("../assets/fonts/Agrandir-Grand.eot") format("eot"), url("../assets/fonts/Agrandir-Grand.otf") format("otf"), url("../assets/fonts/Agrandir-Grand.svg") format("svg");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Agrandir Grand";
+    src: url("../assets/fonts/Agrandir-GrandHeavy.woff") format("woff"), url("../assets/fonts/Agrandir-GrandHeavy.woff2") format("woff2"), url("../assets/fonts/Agrandir-GrandHeavy.eot") format("eot"), url("../assets/fonts/Agrandir-GrandHeavy.otf") format("otf"), url("../assets/fonts/Agrandir-GrandHeavy.svg") format("svg");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Agrandir Grand";
+    src: url("../assets/fonts/Agrandir-GrandItalic.woff") format("woff"), url("../assets/fonts/Agrandir-GrandItalic.woff2") format("woff2"), url("../assets/fonts/Agrandir-GrandItalic.eot") format("eot"), url("../assets/fonts/Agrandir-GrandItalic.otf") format("otf"), url("../assets/fonts/Agrandir-GrandItalic.svg") format("svg");
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Agrandir Grand";
+    src: url("../assets/fonts/Agrandir-GrandLight.woff") format("woff"), url("../assets/fonts/Agrandir-GrandLight.woff2") format("woff2"), url("../assets/fonts/Agrandir-GrandLight.eot") format("eot"), url("../assets/fonts/Agrandir-GrandLight.otf") format("otf"), url("../assets/fonts/Agrandir-GrandLight.svg") format("svg");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@mixin agrandir-wide {
+    font-family: 'Agrandir Wide', Helvetica, Arial, sans-serif;
+}
+
+@mixin agrandir-grand {
+    font-family: 'Agrandir Grand', Helvetica, Arial, sans-serif;
+}
