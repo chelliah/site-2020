@@ -20,7 +20,7 @@ precision highp float;
 
 uniform vec2 u_resolution;
 uniform float u_time;
-uniform vec2 u_mouse;
+uniform vec2 u_mouse_pos;
 uniform vec2 moon_grid;
 uniform float u_hover_main_about_me;
 uniform float u_hover_main_my_work;
@@ -63,6 +63,19 @@ float circle(in vec2 _st,in float _radius){
     return 1.-smoothstep(_radius-(_radius*.01),
     _radius+(_radius*.01),
     dot(dist,dist)*4.);
+}
+
+float circle_at_pos(in vec2 _st, in float _radius, in float u_time){
+    vec2 dist=_st;
+    float d = noise(rotate2D(_st, u_time/30. + 123.) * sin( u_time/20. + 932. + u_mouse_pos.x/u_mouse_pos.y/2.)*8. + 9999.4)*1.5;
+
+    float m = noise(rotate2D(_st, u_time/434. + 123.) + cos( u_time/20. - 932.)*8. + 9999.4)/20.;
+    // _radius = d;
+    dist *= d;
+    dist += m;
+    return 1.-smoothstep(_radius-(_radius*.01),
+    _radius+(_radius*.01),
+    dot(dist,dist)*(4.));
 }
 
 float translated_circle(in vec2 _st,in float displacement,in float _radius){
@@ -261,7 +274,7 @@ vec3 draw_moons(in vec2 st){
     float circ_1=circle(st,.5);
     float circ_2=circle(vec2(st.x-.15*sin(PI/4.*7.),st.y),.28);
     
-    // vec2 mouse_point = u_mouse/u_resolution;
+    // vec2 mouse_point = u_mouse_pos/u_resolution;
     
     // float displacement = distance(flr + ipos, mouse_point * 15.);
     // float circ_3 = translated_circle(st, -1. * displacement, 0.5);
@@ -292,7 +305,7 @@ vec3 draw_moons(in vec2 st){
         // }
         color=BROWN_2;
         
-        //   float d = distance( gl_FragCoord.xy/u_resolution, u_mouse/u_resolution);
+        //   float d = distance( gl_FragCoord.xy/u_resolution, u_mouse_pos/u_resolution);
         //   if(d < .1) {
             //       color = vec3(1.);
         //   }
@@ -303,14 +316,30 @@ vec3 draw_moons(in vec2 st){
 
 void main(){
     vec2 st=gl_FragCoord.xy/u_resolution.xy;
-    float c1_radius = circle(
-        vec2(0.15, 0.1), 0.1 * u_hover_main_about_me
-    );
-    float c1 = circle(st + noise(rotate2D(st, u_time/30.) * (u_time/20. + 22.))/20. * (u_time/59. + 43.)/35. + vec2(+0.15, 0.1), 0.1 * u_hover_main_about_me);
 
-    float c2 = circle(st + noise(rotate2D(st, u_time/30.) * (u_time/20. + 22.))/20. * (u_time/59. + 43.)/35. + vec2(-0.25, 0.1), 0.1 * u_hover_main_my_work);
+    vec2 u_mouse = vec2(u_mouse_pos.x, u_resolution.y - u_mouse_pos.y);
+
+    vec2 dist = u_mouse/u_resolution - st.xy;
+    dist *= u_resolution.x/u_resolution.y;
+
+    float mouse_pct = length(dist);
+
+    // float c1_radius = circle(
+    //     vec2(0.15, 0.1), 0.1 * u_hover_main_about_me
+    // );
+    // float c1 = circle_at_pos(dist + noise(rotate2D(st, u_time/30.) * (u_time/20. + 22.))/20. * (u_time/59. + 43.)/35. + vec2(+0.15, 0.1), dist, 0.1 * u_hover_main_about_me);
+
+    // float c2 = circle_at_pos(dist + noise(rotate2D(st, u_time/30.) * (u_time/20. + 22.))/20. * (u_time/59. + 43.)/35. + vec2(-0.25, 0.1), dist, 0.1 * u_hover_main_my_work);
     
+
+    float c1 = circle_at_pos(dist, 0.1 * u_hover_main_about_me, u_time);
+    float c2 = circle_at_pos(dist, 0.1 * u_hover_main_my_work, u_time);
     vec3 color=draw_moons(st);
+
+
+
+    // mouse_pct = 1. - step(0.3, mouse_pct);
+    // color += vec3(1.) * mouse_pct;
 
     if(c1 > 0.) {
         color = draw_tie_dye(st);

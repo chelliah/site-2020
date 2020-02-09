@@ -36,15 +36,18 @@ export default {
         moon_rows: 0,
         moon_columns: 0,
         u_hover_main_about_me: 0,
-        u_hover_main_my_work: 0
+        u_hover_main_my_work: 0,
+        u_mouse: {
+          x: 0,
+          y: 0
+        }
       }
     }
   },
   mounted() {
     this.canvas = document.getElementById("bg-animation-canvas")
-    let size = document.documentElement.getBoundingClientRect();
 
-    console.log(size)
+    console.log(window.innerWidth, window.innerHeight)
     this.canvas.width =  window.innerWidth;
     this.canvas.height = window.innerHeight;
     this.sandbox = new GlslCanvas(this.canvas);
@@ -60,15 +63,27 @@ export default {
       this.setUniforms();
 
     })
+
+    window.addEventListener('mousemove', (e) => {
+      // console.log(e.clientX, e.clientY);
+      this.uniforms.u_mouse.x = e.clientX;
+      
+      this.uniforms.u_mouse.y = e.clientY; 
+    })
   // this.sandbox.load(string_frag_code, string_vert_code)
   },
   methods: {
     setUniforms() {
-      let moon_size = 40;
+      let moon_size = 30;
       this.uniforms.moon_rows = Math.floor(this.canvas.height/moon_size);
       this.uniforms.moon_columns = Math.floor(this.canvas.width/moon_size);
       this.sandbox.setUniform("moon_grid",this.uniforms.moon_columns, this.uniforms.moon_rows); 
       this.sandbox.setUniform("u_scene_number", this.sceneIndex);
+      this.sandbox.setUniform("u_mouse_pos", this.uniforms.u_mouse.x, this.uniforms.u_mouse.y);
+      // console.log(this.sandbox.uniforms.u_mouse_pos && this.sandbox.uniforms.u_mouse_pos.value);
+// 
+      // console.log(this.sandbox.uniforms.u_mouse && this.sandbox.uniforms.u_mouse.value);
+      this.sandbox.setUniform("u_resolution", this.canvas.width, this.canvas.height);
       this.sandbox.setUniform("u_hover_main_about_me", this.uniforms.u_hover_main_about_me)
       this.sandbox.setUniform("u_hover_main_my_work", this.uniforms.u_hover_main_my_work)
       requestAnimationFrame(this.setUniforms)
