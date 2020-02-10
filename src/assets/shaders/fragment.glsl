@@ -72,9 +72,9 @@ float circle(in vec2 _st,in float _radius){
 
 float circle_at_pos_noise(in vec2 _st, in float _radius, in float u_time){
     vec2 dist=_st;
-    float d = noise(rotate2D(_st, u_time/60. + 123.) * sin( u_time/45. + 932. + u_mouse_pos.x/400. + u_mouse_pos.y/400.)*8. + 9999.4)*1.5;
+    float d = noise(rotate2D(_st, u_time/24.235 + 123.) * sin( u_time/45. + 932. + u_mouse_pos.x/u_resolution.x*7. + u_mouse_pos.y/u_resolution.y*6.)*8. + 9999.4*u_scene)*1.5;
 
-    float m = noise(rotate2D(_st, u_mouse_pos.x*u_mouse_pos.y/(u_resolution.x*u_resolution.y)/20.*_radius) + cos( u_time/73. - 932.)*8. + 9999.4)*2.5;
+    float m = noise(rotate2D(_st, u_mouse_pos.x*u_mouse_pos.y/(u_resolution.x*u_resolution.y)/5.) + cos( u_time/73. - 932.)*8. + 9999.4 * u_scene)*2.5;
     // _radius = d;
     dist *= d;
     dist *= m;
@@ -281,53 +281,18 @@ vec3 draw_moons(in vec2 st){
     }else if(modX==1.&&modY==1.){
         st=rotate2D(st,PI/4.);
     }
-    
-    //   //  integer value 0 to 10
-    // vec2 ipos = floor(st);
-    // // fractional value 0.0 to 1.0
-    // vec2 fpos = fract(st);
-    // // vec2 fpos = floo
-    // // st -= vec2(.5);
-    
+    float nz=noise((flr)/5.+u_time/20.)+noise((flr)*32.+u_time/18.);
+
+
     float circ_1=circle(st,.5);
     float circ_2=circle(vec2(st.x-.15*sin(PI/4.*7.),st.y),.28);
-    
-    // vec2 mouse_point = u_mouse_pos/u_resolution;
-    
-    // float displacement = distance(flr + ipos, mouse_point * 15.);
-    // float circ_3 = translated_circle(st, -1. * displacement, 0.5);
-    // float circ_4 = translated_circle(vec2(st.x - .15 * sin(PI/4. * 7.), st.y), -1. * displacement,  0.28);
-    
+
     vec3 color=BROWN_1;
     
-    // float nz = noise((ipos * u_time/20. + flr)/5. + u_time/20.);
-    float nz=noise((ipos+flr)/5.+u_time/20.)+noise((ipos+flr)/32.+u_time/18.);
     
-    // if (circ_3 > 0. && circ_4 == 0.) {
-        //   color = PINK;
-    // }
+
     if(circ_1>0.&&circ_2==0.){
-        // if(nz > 1. && nz < 1.3) {
-            //   float prg = smoothstep(1.3, 1., nz);
-            //   float rnd = noise(vec2((flr + ipos)*200. +u_time/20.));
-            
-            //   if(rnd > prg) {
-                //     color = mix(PINK, BROWN_2, 0.3);
-            //   } else {
-                //     color = BROWN_2;
-            //   }
-        // } else if(nz >= 1.3) {
-            //     color = mix(PINK, BROWN_2, 0.3);
-        // } else {
-            //   color = BROWN_2;
-        // }
         color=BROWN_2;
-        
-        //   float d = distance( gl_FragCoord.xy/u_resolution, u_mouse_pos/u_resolution);
-        //   if(d < .1) {
-            //       color = vec3(1.);
-        //   }
-        //   color = mix(vec3(1.), BROWN_2, min(d*d*d + 0.7, 1.));
     }
     return color;
 }

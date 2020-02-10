@@ -37,7 +37,7 @@ export default {
     isHovering(isHovering) {
         gsap.to(this.$data, .25, {
             ease:Power3.easeOut, 
-            texShadowOffset: isHovering ? '2' : '0'
+            texShadowOffset: isHovering ? '4' : '1'
             // onUpdate:function() {
             //     element5.innerHTML = obj5.value.toFixed(1);
             // }
@@ -54,8 +54,8 @@ export default {
   data() {
       return {
           isHovering: false,
-          texShadowOffset: 0,
-          className: `agrandir--grand internal-link${this.theme == 'dark' ? ' dark' : ''}${this.theme == 'light' ? ' light' : ''}${this.class ? ` ${this.class}`: ''}`
+          texShadowOffset: 1,
+          className: `agrandir--grand internal-link${this.theme ? ` ${this.theme}` : ''}${this.class ? ` ${this.class}`: ''}`
       }
   }
 };
@@ -69,7 +69,7 @@ export default {
 .internal-link {
     @include agrandir-grand;
     font-size: 32px;
-    font-weight: 300;
+    font-weight: 600;
     font-style: italic;
     cursor: pointer;
     text-decoration: none;
@@ -82,6 +82,11 @@ export default {
 
 .light {
     color: $cream;
+    text-shadow: 0px 0px 0px #934A30, 0px 0px 0px #934A30;
+}
+
+.mid {
+    color: $green-light;
     text-shadow: 0px 0px 0px #934A30, 0px 0px 0px #934A30;
 }
 </style>

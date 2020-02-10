@@ -26,7 +26,7 @@ export default {
     },
     setDataColors() {
         if(this.dataColorsInterval == null) return;
-        if(this.dataColorsInterval % 20 == 0) {
+        if(this.dataColorsInterval % 40 == 0) {
             this.dataColors = this.text.split("").map(() =>  colors[Math.floor(Math.random()*colors.length)])
             
         }
@@ -38,24 +38,6 @@ export default {
       this.dataColors = this.text.split("").map(() =>  "transparent")
     }
   },
-  watch: {
-    // isHovering(isHovering) {
-    //     gsap.to(this.$data, .25, {
-    //         ease:Power3.easeOut,
-    //         texShadowOffset: isHovering ? '2' : '0'
-    //         // onUpdate:function() {
-    //         //     element5.innerHTML = obj5.value.toFixed(1);
-    //         // }
-    //     });
-    // }
-  },
-  //   computed: {
-  //       textShadow() {
-  //           let color = this.theme == 'light' ? '#639E5D' : '#934A30'
-
-  //           return `text-shadow: ${this.texShadowOffset/2}px ${this.texShadowOffset/2}px 0px  ${color}, ${this.texShadowOffset}px ${this.texShadowOffset}px 0px ${color};`
-  //       }
-  //   },
   data() {
     return {
       isHovering: false,
@@ -76,7 +58,7 @@ export default {
 }
 .external-link {
   @include agrandir-wide;
-  font-size: 48px;
+  font-size: 36px;
   font-weight: 600;
   font-style: italic;
   color: transparent;
@@ -101,11 +83,12 @@ export default {
         position: absolute;
         left: 0px;
         text-shadow: none;
-        top: -7px;
+        top: -5px;
         -webkit-text-stroke-color: #d17f57;
         color: var(--letter-color);
         mix-blend-mode: lighten;
-        font-size: 48px;
+        font-size: 36px;
+        opacity: 0;
         // z-index: -1;
     }
   }

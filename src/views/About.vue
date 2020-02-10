@@ -1,21 +1,24 @@
 <template>
   <div class="page--about">
     <div class="nav left short">
-      <internal-link to="/" text="home" theme="light" :onHover="hoverHome" :clearHover="clearHover" />
+      <internal-link to="/" text="home" theme="mid" :onHover="hoverHome" :clearHover="clearHover" />
       <internal-link
         to="/my-work"
         text="see my work"
-        theme="light"
+        theme="mid"
         :onHover="hoverMyWork"
         :clearHover="clearHover"
       />
     </div>
     <div class="text-container">
-      <h3 class="right short">about me</h3>
+      <h3 class="right short">About me</h3>
       <p
         class="left"
       >My name is Erin. I grew up in Massachusetts but as of this year am lucky to be moving to Chicago. I’m trans and brown and a taurus moon. I’ve worked as a developer for about four years.</p>
       <p class="left">In my free time I love to watch movies, sew, bike around and practice yoga.</p>
+      <p class="right">
+          Check out my <external-link to="https://docs.google.com/document/d/1BJSWUPeHcoZi2GXuHpamZx9e6Ig2uDu9cjZe5xkGh4I/edit?usp=sharing" text="CV"/> or get in contact with me at <external-link to="mailto:erin.c.tho@gmail.com" text="erin.c.tho@gmail.com"/>.
+      </p>
     </div>
 
     <h1 class="background-jumbo-text left">about me</h1>
@@ -24,12 +27,14 @@
 
 <script>
 import InternalLink from "../components/InternalLink";
+import ExternalLink from '../components/ExternalLink';
 
 export default {
   name: "About",
   props: ["setSceneHoverTarget"],
   components: {
-    InternalLink
+    InternalLink,
+    ExternalLink
   },
   beforeDestroy() {
       this.clearHover();
@@ -66,19 +71,20 @@ export default {
   overflow: scroll;
 }
 
+
+
 .background-jumbo-text {
   @include agrandir-wide;
   font-style: italic;
-  font-size: 280px;
+  font-size: 25vw;
   position: fixed;
   bottom: 24px;
   left: 24px;
   margin: 0;
   width: 2400px;
   z-index: 0;
-  color: transparent;
-  -webkit-text-stroke-width: 4px;
-  -webkit-text-stroke-color: $brown-med;
+  color: #A7C177;
+  opacity: 0.5;
 }
 
 .text-container {
@@ -105,7 +111,7 @@ export default {
   }
 
   p {
-    font-size: 48px;
+    font-size: 36px;
   }
 }
 
@@ -182,6 +188,15 @@ export default {
     &.short {
       transform: translate(30px, 0);
     }
+  }
+}
+
+@supports ( -webkit-text-stroke-width: 4px) {
+  .background-jumbo-text {
+      color: transparent;
+      opacity: 1;
+    -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color: $brown-med;
   }
 }
 </style>

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import gsap, { Power1 } from "gsap";
+import gsap, { Power1, Power3 } from "gsap";
 import GlslCanvas from "glslCanvas";
 import glslify from "glslify";
 // import vertexShader from '../assets/shaders/vertex.glsl';
@@ -138,14 +138,16 @@ export default {
     setSceneIndex(route) {
       let page = route.name;
       // console.log(page)
-      const SCENE_TRANSITION_TIME = 1.8;
+      const isMobile = window.mobilecheck();
+      const SCENE_TRANSITION_TIME = isMobile ? 2.5 : 1.8;
+      const ease = isMobile ? Power3.easeIn : Power1.easeIn;
 
       if (page.indexOf("about") >= 0) {
         gsap.to(
           this.$data.uniforms.u_scene_transition,
           SCENE_TRANSITION_TIME,
           {
-            ease: Power1.easeIn,
+            ease,
             x: 0,
             y: 0,
             z: 1
@@ -163,7 +165,7 @@ export default {
           this.$data.uniforms.u_scene_transition,
           SCENE_TRANSITION_TIME,
           {
-            ease: Power1.easeIn,
+            ease,
             x: 0,
             y: 1,
             z: 0
@@ -181,7 +183,7 @@ export default {
           this.$data.uniforms.u_scene_transition,
           SCENE_TRANSITION_TIME,
           {
-            ease: Power1.easeIn,
+            ease,
             x: 1,
             y: 0,
             z: 0

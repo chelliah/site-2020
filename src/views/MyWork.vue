@@ -3,32 +3,35 @@
     <div class="nav left short">
       <internal-link 
         to="/" 
-        text="home" 
-        theme="dark" 
+        text="Home" 
+        theme="light" 
         :onHover="hoverHome" 
         :clearHover="clearHover"/>
       <internal-link 
         to="/about" 
-        text="about me" 
-        theme="dark" 
+        text="About me" 
+        theme="light" 
         :onHover="hoverAbout" 
         :clearHover="clearHover"/>
     </div>
     <div class="text-container">
-      <h3 class="right short">my work</h3>
+      <h3 class="right short">My work</h3>
       <p class="left">
         There are a couple hobby projects I’m especially proud of.
-        <external-link to text="Blumhouse" />is a site i built to practice SVG animations.
-        <external-link to text="Shader sketchbook" />is a vue app I build to easily write and tweak glsl programs.
+        <external-link to="https://s3-us-west-2.amazonaws.com/blumhouse-project/index.html" text="Blumhouse" /> is a site i built to practice SVG animations.
+        <external-link to="https://s3.us-east-2.amazonaws.com/shaders-website/index.html#/" text="Shader sketchbook" /> is a vue app I build to easily write and tweak glsl programs.
       </p>
       <p class="right">
         One client project i’m especially proud of is the
-        <external-link to text="Community ties survey" />for Knight Foundation. At Fathom Information Design, I served as the lead developer on this project.
+        <external-link to text="Community ties survey" /> for Knight Foundation. At Fathom Information Design, I served as the lead developer on this project.
       </p>
       <p class="left">
         In my free time, I like to practice fabric arts. Mostly, this involves making
-        <external-link to text="clothes" />and
-        <external-link to text="embroidery" />for friends
+        <external-link to text="clothes" /> and
+        <external-link to text="embroidery" /> for friends
+      </p>
+      <p class="left">
+          Feel free to check out my <external-link to="https://github.com/chelliah" text="github"/> or <external-link to ="https://codepen.io/chelliah/" text="codepen"/> if you want to see more.
       </p>
     </div>
 
@@ -85,16 +88,15 @@ export default {
 .background-jumbo-text {
   @include agrandir-wide;
   font-style: italic;
-  font-size: 280px;
+  font-size: 25vw;
   position: fixed;
   bottom: 24px;
   left: 24px;
   margin: 0;
   width: 2400px;
   z-index: 0;
-  color: transparent;
-  -webkit-text-stroke-width: 4px;
-  -webkit-text-stroke-color: #d4ffde;
+  color: #d4ffde;
+  opacity: 0.7;
 }
 
 .text-container {
@@ -121,7 +123,7 @@ export default {
   }
 
   p {
-    font-size: 48px;
+    font-size: 36px;
   }
 }
 
@@ -198,6 +200,15 @@ export default {
     &.short {
       transform: translate(30px, 0);
     }
+  }
+}
+
+@supports ( -webkit-text-stroke-width: 4px) {
+  .background-jumbo-text {
+      color: transparent;
+      opacity: 1;
+    -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color: #d4ffde;
   }
 }
 </style>
