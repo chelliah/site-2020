@@ -5,6 +5,7 @@
         id="view"
         :setSceneHoverTarget="setSceneHoverTarget"
         :activeSceneId="uniforms.u_scene"
+        :hoverAboutMe="uniforms.u_hover_about_me"
       />
     </transition>
     <canvas id="bg-animation-canvas" />
@@ -15,6 +16,8 @@
 import gsap, { Power1, Power3 } from "gsap";
 import GlslCanvas from "glslCanvas";
 import glslify from "glslify";
+
+// import me from '../assets/me.jpg';
 // import vertexShader from '../assets/shaders/vertex.glsl';
 import fragmentShader from "../assets/shaders/fragment.glsl";
 
@@ -119,6 +122,7 @@ export default {
         this.uniforms.u_scene_transition.y,
         this.uniforms.u_scene_transition.z
       );
+      // this.sandbox.setUniform("u_texture", me)
       this.sandbox.setUniform(
         "u_mouse_pos",
         this.uniforms.u_mouse.x,

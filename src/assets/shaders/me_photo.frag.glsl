@@ -19,6 +19,8 @@ precision highp float;
 #define MINT vec3(.671, .827, .529) //67.1% red, 82.7% green and 52.9% blue
 #define MAGNIFIED_SIZE 35.
 
+uniform sampler2D u_texture; // <---------------------------------- texture sampler uniform
+
 uniform vec2 u_resolution;
 uniform float u_time;
 uniform vec2 u_mouse_pos;
@@ -28,6 +30,9 @@ uniform vec3 u_scene_transition;
 uniform vec2 u_hover_main;
 uniform vec2 u_hover_about_me;
 uniform vec2 u_hover_my_work;
+uniform vec2 u_full_res;
+uniform vec2 u_mouse_pos_global;
+
 
 
 
@@ -73,16 +78,18 @@ float circle(in vec2 _st,in float _radius){
 
 float circle_at_pos_noise(in vec2 _st, in float _radius, in float u_time){
     vec2 dist=_st;
-    float d = noise(rotate2D(_st, u_time/24.235 + 123.) * sin( u_time/45. + 932. + u_mouse_pos.x/u_resolution.x*7. + u_mouse_pos.y/u_resolution.y*6.)*8. + 9999.4*u_scene)*1.5;
+    float d = noise(rotate2D(_st, u_time/24.235 + 123.) * sin( u_time/45. + 932. + u_mouse_pos_global.x/u_full_res.x*3. + u_mouse_pos_global.y/u_full_res.y*3.)*8. + 9999.4*u_scene)*1.5;
 
-    float m = noise(rotate2D(_st, u_mouse_pos.x*u_mouse_pos.y/(u_resolution.x*u_resolution.y)/5.) + cos( u_time/73. - 932.)*8. + 9999.4 * u_scene)*2.5;
+    float m = noise(rotate2D(_st, u_mouse_pos_global.x*u_mouse_pos_global.y/(u_resolution.x*u_resolution.y)/5.) + cos( u_time/73. - 932.)*8. + 9999.4 * u_scene)*.5;
     // _radius = d;
     dist *= d;
     dist *= m;
+    _st -= .5;
     return 1.-smoothstep(_radius-(_radius*.01),
     _radius+(_radius*.01),
     dot(dist,dist)*(4.));
 }
+
 
 float circle_at_pos(in vec2 _st, in float _radius, in float u_time){
     vec2 dist=_st;
@@ -193,7 +200,7 @@ vec3 OLIVE_2 = mix(MINT, vec3(1.), 0.3);
 }
 
 vec3 draw_tie_dye(in vec2 st){
-    st*=vec2(200.,300.);
+    st*=vec2(43.,43.);
     vec2 flr=floor(st);
     vec2 ipos=fract(st);
     st=ipos;
@@ -249,9 +256,9 @@ vec3 draw_tie_dye(in vec2 st){
     //    color = mix(BROWN_1, PINK, pct);
     //    color = mix(BROWN_1, BROWN_2, pct) * mix(PINK, BROWN_2, pct2);
     
-    if(nz<1.){
+    if(nz>2.){
         color=mix(OLIVE,BROWN_2,pct);
-    }else if(nz<2.){
+    }else if(nz>1.){
         color=mix(BROWN_2,BROWN_3,pct);
     }else{
         color=mix(BROWN_3,OLIVE,pct);
@@ -263,7 +270,7 @@ vec3 draw_tie_dye(in vec2 st){
 }
 
 vec3 draw_moons(in vec2 st){
-    st*=moon_grid.xy;
+    st*=vec2(40., 40.);
     vec2 flr=floor(st);
     vec2 ipos=fract(st);
     st=ipos;
@@ -298,33 +305,7 @@ vec3 draw_moons(in vec2 st){
     return color;
 }
 
-vec3 render_about_me_scene(in vec2 st) {
-  vec2 u_mouse = vec2(u_mouse_pos.x, u_resolution.y - u_mouse_pos.y);
-
-    vec2 dist = u_mouse/u_resolution - st.xy;
-    dist *= u_resolution.x/u_resolution.y;
-
-    float mouse_pct = length(dist);
-    float sz = MAGNIFIED_SIZE * (u_resolution.x + u_resolution.y)/1000.;
-    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_about_me.y + u_scene_transition.x*sz, u_time);
-    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_about_me.x+ u_scene_transition.y*sz, u_time);
-    vec3 color=draw_tie_dye(st);
-
-    if(c1 > 0.) {
-        color = draw_moons(st);
-    }
-
-    if(c2 > 0.) {
-        color = draw_checkerboard(st);
-    }
-
-
-
-    return color;
-}
-
-
-vec3 render_my_work_scene(in vec2 st) {
+vec4 render_about_me_scene(in vec2 st, in vec2 st_full) {
   vec2 u_mouse = vec2(u_mouse_pos.x, u_resolution.y - u_mouse_pos.y);
 
     vec2 dist = u_mouse/u_resolution - st.xy;
@@ -332,66 +313,54 @@ vec3 render_my_work_scene(in vec2 st) {
 
     float mouse_pct = length(dist);
 
-    float sz = MAGNIFIED_SIZE * (u_resolution.x + u_resolution.y)/1000.;
-    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_my_work.y + u_scene_transition.x*sz, u_time);
-    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_my_work.x+ u_scene_transition.z*sz, u_time);
-    vec3 color=draw_checkerboard(st);
+    vec2 dist_full = u_mouse_pos_global/u_full_res - st_full.xy;
+    dist_full *= u_full_res.x/u_full_res.y;
+
+    float c1 = circle_at_pos_noise(dist_full, 0.1 * u_hover_about_me.y, u_time);
+    float c2 = circle_at_pos_noise(dist_full, 0.1 * u_hover_about_me.x, u_time);
+    // vec4 color=draw_tie_dye(st);
+
+
+    vec4 color = vec4(0.);
+
+    float nz = (noise(st + .024*u_time) + noise(st + .42*u_time))/2.;
+    vec4 scn = vec4(draw_tie_dye(st), 1.);
+
+
+    // mouse_pct /= sin(u_time/20.);
+    mouse_pct = min(mouse_pct, 1.);
+
+    float distortion = 90. * (1. - mouse_pct);
+    vec4 tex = texture2D(u_texture, st * (2. - mouse_pct)*sqrt(mouse_pct) - 0.02 *  noise(vec2(st * distortion +  u_time))).rgba;
+
+    tex += st.y - 0.01 * random(vec2(st * u_time)) ;
+    // color *= circle(st * nz, .5);
+
+    if(scn.r > 0.95) {
+        color = .5 - (1. - scn) * (1. - tex);
+    } else {
+        color = scn * tex;
+    }
+
 
     if(c1 > 0.) {
-        color = draw_moons(st);
+        color = vec4(draw_moons(st_full), 1. );
     }
 
     if(c2 > 0.) {
-        color = draw_tie_dye(st);
+        color = vec4(draw_checkerboard(st_full), 1. );
     }
+
+
 
     return color;
 }
 
-vec3 render_scene_main(in vec2 st) {
-    vec2 u_mouse = vec2(u_mouse_pos.x, u_resolution.y - u_mouse_pos.y);
 
-    vec2 dist = u_mouse/u_resolution - st.xy;
-    dist *= u_resolution.x/u_resolution.y;
-
-    float mouse_pct = length(dist);
-    float sz = MAGNIFIED_SIZE * (u_resolution.x + u_resolution.y)/1000.;
-    float c1 = circle_at_pos_noise(dist, 0.1 * u_hover_main.x + u_scene_transition.z*sz, u_time);
-    float c2 = circle_at_pos_noise(dist, 0.1 * u_hover_main.y + u_scene_transition.y*sz, u_time);
-    vec3 color=draw_moons(st);
-
-    if(c1 > 0.) {
-        color = draw_tie_dye(st);
-    }
-
-    if(c2 > 0.) {
-        color = draw_checkerboard(st);
-    }
-
-    return color;
-}
 
 void main(){
     vec2 st=gl_FragCoord.xy/u_resolution.xy;
-    vec3 color = vec3(0.);
 
-    if(u_scene == 1.) {
-        color = render_about_me_scene(st);
-    } else if (u_scene == 2.) {
-        color = render_my_work_scene(st);
-    } else {
-        color = render_scene_main(st);
-    }
-
-    // vec3 scene1 = render_scene_main(st) * u_scene_transition.x;
-
-    // vec3 scene2 = render_about_me_scene(st) * u_scene_transition.z;
-
-    // vec3 scene3 = render_my_work_scene(st) * u_scene_transition.y;
-    // color = scene1 + scene2 + scene3;
-
-
-  
     
-    gl_FragColor=vec4(color,1.);
+    gl_FragColor=  render_about_me_scene(st, gl_FragCoord.xy/u_full_res.xy);
 }

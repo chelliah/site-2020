@@ -17,27 +17,55 @@
       >My name is Erin. I grew up in Massachusetts but as of this year am lucky to be moving to Chicago. I’m trans and brown and a taurus moon. I’ve worked as a developer for about four years.</p>
       <p class="left">In my free time I love to watch movies, sew, bike around and practice yoga.</p>
       <p class="right">
-          Check out my <external-link to="https://docs.google.com/document/d/1BJSWUPeHcoZi2GXuHpamZx9e6Ig2uDu9cjZe5xkGh4I/edit?usp=sharing" text="CV"/> or get in contact with me at <external-link to="mailto:erin.c.tho@gmail.com" text="erin.c.tho@gmail.com"/>.
+        Check out my
+        <external-link
+          to="https://docs.google.com/document/d/1BJSWUPeHcoZi2GXuHpamZx9e6Ig2uDu9cjZe5xkGh4I/edit?usp=sharing"
+          text="CV"
+        />or get in contact with me at
+        <external-link to="mailto:erin.c.tho@gmail.com" text="erin.c.tho@gmail.com" />.
       </p>
     </div>
+    <!-- <img :src="me" alt="A black and white photo of Erin Thomas, who is wearing a plaid zip up and smiling."/> -->
 
     <h1 class="background-jumbo-text left">about me</h1>
+    <canvas id="me-img-canvas" class="right" />
   </div>
 </template>
 
 <script>
-import InternalLink from "../components/InternalLink";
-import ExternalLink from '../components/ExternalLink';
+// import gsap, { Power1, Power3 } from "gsap";
+import GlslCanvas from "glslCanvas";
+import glslify from "glslify";
 
+import InternalLink from "../components/InternalLink";
+import ExternalLink from "../components/ExternalLink";
+import fragmentShader from "../assets/shaders/me_photo.frag.glsl";
+
+// import vertShader from '../assets/shaders/me_photo.vert.glsl';
+import me from "../assets/me.jpg";
 export default {
   name: "About",
-  props: ["setSceneHoverTarget"],
+  props: ["setSceneHoverTarget", "hoverAboutMe"],
+  data() {
+    return {
+      me: me,
+      u_mouse: {
+        x: 0,
+        y: 0
+      },
+      u_canvas_pos: {
+          x: 0,
+          y: 0,
+      }
+    };
+  },
   components: {
     InternalLink,
     ExternalLink
   },
   beforeDestroy() {
-      this.clearHover();
+    this.clearHover();
+    window.removeEventListener("mousemove", this.setMouseMove.bind(this));
   },
   methods: {
     hoverMyWork() {
@@ -48,7 +76,58 @@ export default {
     },
     hoverHome() {
       this.setSceneHoverTarget("u_hover_about_me", 0, 1);
+    },
+    setMouseMove(e) {
+      let { left, top } = this.canvas.getBoundingClientRect();
+      // console.log(e.clientX, e.clientY);
+      this.u_mouse.x = e.clientX;
+
+      this.u_mouse.y = e.clientY;
+      this.u_canvas_pos.x = left;
+      this.u_canvas_pos.y = top;
+    },
+    setUniforms() {
+      this.sandbox.setUniform(
+          "u_mouse_pos", 
+          this.u_mouse.x - this.u_canvas_pos.x, 
+          this.u_mouse.y - this.u_canvas_pos.y
+        );
+        this.sandbox.setUniform(
+          "u_mouse_pos_global", 
+          this.u_mouse.x, 
+          this.u_mouse.y
+        );
+      this.sandbox.setUniform(
+        "u_full_res",
+        window.innerWidth,
+        window.innerHeight
+      );
+      this.sandbox.setUniform(
+        "u_hover_about_me",
+        this.hoverAboutMe.x,
+        this.hoverAboutMe.y
+      );
+
+
+      this.sandbox.setUniform(
+        "u_resolution",
+        this.canvas.width,
+        this.canvas.height
+      );
+      this.sandbox.setUniform("u_texture", this.me);
+      requestAnimationFrame(this.setUniforms);
     }
+  },
+  mounted() {
+    this.canvas = document.getElementById("me-img-canvas");
+    this.canvas.width = 400;
+    this.canvas.height = 400;
+
+    window.addEventListener("mousemove", this.setMouseMove.bind(this));
+    this.sandbox = new GlslCanvas(this.canvas);
+    this.sandbox.load(glslify(fragmentShader));
+
+    this.setUniforms();
   }
 };
 </script>
@@ -71,8 +150,6 @@ export default {
   overflow: scroll;
 }
 
-
-
 .background-jumbo-text {
   @include agrandir-wide;
   font-style: italic;
@@ -82,8 +159,8 @@ export default {
   left: 24px;
   margin: 0;
   width: 2400px;
-  z-index: 0;
-  color: #A7C177;
+  z-index: 2;
+  color: #a7c177;
   opacity: 0.5;
 }
 
@@ -191,10 +268,19 @@ export default {
   }
 }
 
-@supports ( -webkit-text-stroke-width: 4px) {
+#me-img-canvas {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  right: 100px;
+  top: 100px;
+  z-index: 0;
+}
+
+@supports (-webkit-text-stroke-width: 4px) {
   .background-jumbo-text {
-      color: transparent;
-      opacity: 1;
+    color: transparent;
+    opacity: 1;
     -webkit-text-stroke-width: 4px;
     -webkit-text-stroke-color: $brown-med;
   }
