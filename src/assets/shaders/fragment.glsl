@@ -30,7 +30,6 @@ uniform vec2 u_hover_about_me;
 uniform vec2 u_hover_my_work;
 
 
-
 vec2 rotate2D(vec2 _st,float _angle){
     _st-=.5;
     _st=mat2(cos(_angle),-sin(_angle),
@@ -193,7 +192,7 @@ vec3 OLIVE_2 = mix(MINT, vec3(1.), 0.3);
 }
 
 vec3 draw_tie_dye(in vec2 st){
-    st*=vec2(200.,300.);
+    st*=vec2(200.,200.);
     vec2 flr=floor(st);
     vec2 ipos=fract(st);
     st=ipos;
@@ -212,43 +211,22 @@ vec3 draw_tie_dye(in vec2 st){
     }else if(modX==1.&&modY==1.){
         st=rotate2D(st,PI/4.);
     }
-    
-    //   //  integer value 0 to 10
-    // vec2 ipos = floor(st);
-    // // fractional value 0.0 to 1.0
-    // vec2 fpos = fract(st);
-    // // vec2 fpos = floo
-    // // st -= vec2(.5);
+
+    vec3 color=BROWN_1;
+
+
     
     float circ_1=circle(st,.5);
     float circ_2=circle(vec2(st.x-.15*sin(PI/4.*7.),st.y),.28);
     
-    vec3 color=BROWN_1;
     
-    // float nz = noise((ipos * u_time/20. + flr)/5. + u_time/20.);
-    float nz=noise(rotate2D(ipos+flr,PI/1.421*(u_time+9345.435)/-34.+20.)/32./5.+u_time/60.)+noise(rotate2D(ipos+flr,PI/1.421*(u_time+12323.412)/50.+12123.12)/32.+u_time/18.)+noise(rotate2D(ipos+flr,PI/1.421+(sin(u_time/300.)+u_time/600.+12323.412)/-80.+12123.12)/32.+u_time/18.)
-    ;
+    float nz=noise(rotate2D(ipos+flr,PI/1.421*(u_time+9345.435)/-34.+20.)/32./5.+u_time/60.)+noise(rotate2D(ipos+flr,PI/1.421*(u_time+12323.412)/50.+12123.12)/32.+u_time/18.)+noise(rotate2D(ipos+flr,PI/1.421+(sin(u_time/300.)+u_time/600.+12323.412)/-80.+12123.12)/32.+u_time/18.);
     
-    //    float pct = smoothstep(1.09, 1.1, nz);
-    //    float pct2 = smoothstep(1.49, 1.5, nz);
-    //    float pct3 = smoothstep(1.99, 2.0, nz);
-    //    color = mix(BROWN_1, PINK, pct);
-    //    color = mix(BROWN_1, BROWN_2, pct) * mix(PINK, BROWN_2, pct2);
-    
-    //    if(nz < 1.1) {
-        //        color = mix(COCOA, BROWN_2, pct);
-    //    } else if (nz < 1.5 ) {
-        //        color = mix(BROWN_2, BROWN_3, pct2);
-    //    } else {
-        //        color = mix(BROWN_3, BROWN_4, pct3);
-    //    }
     
     float pct=smoothstep(.0,1.5,nz);
     float pct2=smoothstep(1.3,1.9,nz);
     float pct3=smoothstep(2.,3.,nz);
-    //    color = mix(BROWN_1, PINK, pct);
-    //    color = mix(BROWN_1, BROWN_2, pct) * mix(PINK, BROWN_2, pct2);
-    
+
     if(nz<1.){
         color=mix(OLIVE,BROWN_2,pct);
     }else if(nz<2.){

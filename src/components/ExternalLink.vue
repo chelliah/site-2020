@@ -7,7 +7,8 @@
 </template>
 
 <script>
-const colors = ['#E4C34C', '#739E5D', '#FFF2D4', '#592819', '#D5EB9E', '#FFAE86']
+// const colors = ["#ABD387", "#E4C34C"]
+const colors = ["#1F5919", "#419330", "#87B97F", "#8ABE8D"]
 // import gsap, {Power3} from 'gsap';
 export default {
   name: "ExternalLink",
@@ -26,8 +27,8 @@ export default {
     },
     setDataColors() {
         if(this.dataColorsInterval == null) return;
-        if(this.dataColorsInterval % 40 == 0) {
-            this.dataColors = this.text.split("").map(() =>  colors[Math.floor(Math.random()*colors.length)])
+        if(this.dataColorsInterval % 10 == 0) {
+            this.dataColors = this.text.split("").map((letter, index) =>  colors[Math.floor((index + this.dataColorsInterval/10)%(colors.length - 1))])
             
         }
         this.dataColorsInterval += 1;
@@ -66,6 +67,9 @@ export default {
   text-decoration: none;
 
   &:hover {
+     span {
+       -webkit-text-stroke-color: transparent;
+     }
       span:before {
           opacity: 1;
       }
@@ -84,11 +88,13 @@ export default {
         left: 0px;
         text-shadow: none;
         top: -5px;
-        -webkit-text-stroke-color: #d17f57;
+        -webkit-text-stroke-color: $brown-light;
         color: var(--letter-color);
-        mix-blend-mode: lighten;
+        // color: $green-light;
+        // mix-blend-mode: lighten;
         font-size: 36px;
         opacity: 0;
+        z-index: 20;
         // z-index: -1;
     }
   }

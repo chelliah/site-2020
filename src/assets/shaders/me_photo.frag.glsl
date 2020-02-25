@@ -316,8 +316,8 @@ vec4 render_about_me_scene(in vec2 st, in vec2 st_full) {
     vec2 dist_full = u_mouse_pos_global/u_full_res - st_full.xy;
     dist_full *= u_full_res.x/u_full_res.y;
 
-    float c1 = circle_at_pos_noise(dist_full, 0.1 * u_hover_about_me.y, u_time);
-    float c2 = circle_at_pos_noise(dist_full, 0.1 * u_hover_about_me.x, u_time);
+    float c1 = circle_at_pos_noise(dist_full, 0.01 * u_hover_about_me.y, u_time);
+    float c2 = circle_at_pos_noise(dist_full, 0.01 * u_hover_about_me.x, u_time);
     // vec4 color=draw_tie_dye(st);
 
 
@@ -330,8 +330,10 @@ vec4 render_about_me_scene(in vec2 st, in vec2 st_full) {
     // mouse_pct /= sin(u_time/20.);
     mouse_pct = min(mouse_pct, 1.);
 
-    float distortion = 90. * (1. - mouse_pct);
-    vec4 tex = texture2D(u_texture, st * (2. - mouse_pct)*sqrt(mouse_pct) - 0.02 *  noise(vec2(st * distortion +  u_time))).rgba;
+    float inFrame = step(0., u_mouse_pos.x) * (1. - step(400., u_mouse_pos.x)) * step(0., u_mouse_pos.y) * (1. - step(400., u_mouse_pos.y));
+
+    float distortion = 9. * (1. - mouse_pct);
+    vec4 tex = texture2D(u_texture, st * (2. - mouse_pct)*sqrt(mouse_pct) - 0.2 *  noise(vec2(st * distortion + u_time*inFrame*distortion/50. + 500.))).rgba;
 
     tex += st.y - 0.01 * random(vec2(st * u_time)) ;
     // color *= circle(st * nz, .5);
@@ -344,7 +346,7 @@ vec4 render_about_me_scene(in vec2 st, in vec2 st_full) {
 
 
     if(c1 > 0.) {
-        color = vec4(draw_moons(st_full), 1. );
+        color = vec4(draw_moons(st_full + .5), 1. );
     }
 
     if(c2 > 0.) {

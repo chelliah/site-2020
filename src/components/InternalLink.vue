@@ -37,7 +37,7 @@ export default {
     isHovering(isHovering) {
         gsap.to(this.$data, .25, {
             ease:Power3.easeOut, 
-            texShadowOffset: isHovering ? '4' : '1'
+            texShadowOffset: isHovering ? '6' : '2'
             // onUpdate:function() {
             //     element5.innerHTML = obj5.value.toFixed(1);
             // }
@@ -47,6 +47,18 @@ export default {
   computed: {
       textShadow() {
           let color = this.theme == 'light' ? '#639E5D' : '#934A30'
+
+          switch(this.theme) {
+              case 'light':
+                color = '#ABD387';
+                break;
+            case 'dark':
+                color = '#DF8C63';
+                break;
+            case 'mid':
+                color = '#FFF2D4';
+                break;
+          }
 
           return `text-shadow: ${this.texShadowOffset/2}px ${this.texShadowOffset/2}px 0px  ${color}, ${this.texShadowOffset}px ${this.texShadowOffset}px 0px ${color};`
       }
@@ -77,16 +89,16 @@ export default {
 
 .dark {
     color: $brown-dark;
-    text-shadow: 0px 0px 0px #934A30, 0px 0px 0px #934A30;
+    text-shadow: 1px 1px 0px $green-mint, 2px 2px 0px $green-mint;
 }
 
 .light {
     color: $cream;
-    text-shadow: 0px 0px 0px #934A30, 0px 0px 0px #934A30;
+    text-shadow: 1px 1px 0px #934A30, 2px 2px 0px #934A30;
 }
 
 .mid {
-    color: $green-light;
-    text-shadow: 0px 0px 0px #934A30, 0px 0px 0px #934A30;
+    color: #C08263;
+    text-shadow: 1px 1px 0px #934A30, 2px 2px 0px #934A30;
 }
 </style>

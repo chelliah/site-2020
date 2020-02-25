@@ -90,6 +90,8 @@ export default {
   font-style: italic;
   font-size: 25vw;
   position: fixed;
+
+line-height: 15vw;
   bottom: 24px;
   left: 24px;
   margin: 0;
