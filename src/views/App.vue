@@ -34,6 +34,7 @@ export default {
       sceneIndex: null,
       sandbox: null,
       canvas: null,
+      timer: 0,
       uniforms: {
         moon_rows: 0,
         moon_columns: 0,
@@ -77,7 +78,7 @@ export default {
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
       // this.sandbox.load(glslify(fragmentShader));
-      this.setUniforms();
+      // this.setUniforms();
     });
 
     window.addEventListener("mousemove", e => {
@@ -95,6 +96,15 @@ export default {
       let moon_size = 30;
       this.uniforms.moon_rows = Math.floor(this.canvas.height / moon_size);
       this.uniforms.moon_columns = Math.floor(this.canvas.width / moon_size);
+
+      this.timer += 1/40;
+      // if(this.timer == 0) {
+      //   console.log('hmmm');
+      // }
+      this.sandbox.setUniform(
+        'uTime',
+        Math.abs((this.timer % (60 * 2)) - 60)
+      )
       this.sandbox.setUniform(
         "moon_grid",
         this.uniforms.moon_columns,
@@ -226,8 +236,8 @@ body {
 
 #bg-animation-canvas {
   position: fixed;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   z-index: -1;

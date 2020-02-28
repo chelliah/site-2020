@@ -1,5 +1,7 @@
 <template>
   <div class="page--about">
+    <h1 class="background-jumbo-text left">about me</h1>
+    <canvas id="me-img-canvas" class="right" />
     <div class="nav left short">
       <internal-link to="/" text="home" theme="mid" :onHover="hoverHome" :clearHover="clearHover" />
       <internal-link
@@ -11,7 +13,7 @@
       />
     </div>
     <div class="text-container">
-      <h3 class="right short">About me</h3>
+      <!-- <h3 class="right short">About me</h3> -->
       <p
         class="left"
       >My name is Erin, my pronouns are she/her. I grew up in Massachusetts but as of this year am lucky to be moving to Chicago. I’m trans and brown and a taurus moon. I’ve worked as a developer for about four years.</p>
@@ -26,9 +28,6 @@
       </p>
     </div>
     <!-- <img :src="me" alt="A black and white photo of Erin Thomas, who is wearing a plaid zip up and smiling."/> -->
-
-    <h1 class="background-jumbo-text left">about me</h1>
-    <canvas id="me-img-canvas" class="right" />
   </div>
 </template>
 
@@ -49,13 +48,14 @@ export default {
   data() {
     return {
       me: me,
+      timer: 0,
       u_mouse: {
         x: 0,
         y: 0
       },
       u_canvas_pos: {
-          x: 0,
-          y: 0,
+        x: 0,
+        y: 0
       }
     };
   },
@@ -87,16 +87,24 @@ export default {
       this.u_canvas_pos.y = top;
     },
     setUniforms() {
+      this.timer += 1/40;
+      // if(this.timer == 0) {
+      //   console.log('hmmm');
+      // }
       this.sandbox.setUniform(
-          "u_mouse_pos", 
-          this.u_mouse.x - this.u_canvas_pos.x, 
-          this.u_mouse.y - this.u_canvas_pos.y
-        );
-        this.sandbox.setUniform(
-          "u_mouse_pos_global", 
-          this.u_mouse.x, 
-          this.u_mouse.y
-        );
+        'uTime',
+        Math.abs((this.timer % (60 * 2)) - 60)
+      )
+      this.sandbox.setUniform(
+        "u_mouse_pos",
+        this.u_mouse.x - this.u_canvas_pos.x,
+        this.u_mouse.y - this.u_canvas_pos.y
+      );
+      this.sandbox.setUniform(
+        "u_mouse_pos_global",
+        this.u_mouse.x,
+        this.u_mouse.y
+      );
       this.sandbox.setUniform(
         "u_full_res",
         window.innerWidth,
@@ -107,7 +115,6 @@ export default {
         this.hoverAboutMe.x,
         this.hoverAboutMe.y
       );
-
 
       this.sandbox.setUniform(
         "u_resolution",
@@ -144,27 +151,36 @@ export default {
   z-index: 120;
 }
 
-.page--aboutk {
+.page--about {
   // background-color: $brown-light;
-  display: inline-block;
-  overflow: scroll;
+  display: block;
+  overflow: visible;
+  /* max-height: 1000px; */
+  max-width: 1280px;
+  position: relative;
+  margin: auto;
 }
 
 .background-jumbo-text {
   @include agrandir-wide;
   font-style: italic;
-  font-size: 25vw;
+  font-size: 90px;
+  color: $brown-med;
 
-line-height: 15vw;
+  text-transform: uppercase;
+  line-height: 90px;
 
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
+  position: absolute;
+  bottom: 60px;
+  right: 60px;
+  text-align: right;
+
+  //   left: 24px;
   margin: 0;
-  width: 2400px;
+  width: 400px;
   z-index: 2;
-  color: #a7c177;
-  opacity: 0.5;
+  //   color: #a7c177;
+  //   opacity: 0.9;
 }
 
 .text-container {
@@ -173,14 +189,20 @@ line-height: 15vw;
   position: absolute;
   color: $cream;
   // height: 100%;
-  overflow: scroll;
-  padding-left: 100px;
-  padding-top: 190px;
-  height: 100vh;
+  //   overflow: scroll;
+  //   padding: 100px 20px 0px 100px;
+  // //   padding-top: 150px;
+  //   width: calc(100% - 200px);
+  //   height: 100vh;
   box-sizing: border-box;
+  max-width: 500px;
+
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
 
   * {
-    max-width: 824px;
+    max-width: 560px;
   }
 
   h3 {
@@ -191,7 +213,8 @@ line-height: 15vw;
   }
 
   p {
-    font-size: 36px;
+    font-size: 20px;
+    width: 100%;
   }
 }
 
@@ -272,21 +295,75 @@ line-height: 15vw;
 }
 
 #me-img-canvas {
-  position: fixed;
+  position: absolute;
   width: 400px;
   height: 400px;
   right: 100px;
   top: 100px;
   z-index: 0;
-//   display: none;
+  //   display: none;
 }
 
-@supports (-webkit-text-stroke-width: 4px) {
-  .background-jumbo-text {
-    color: transparent;
-    opacity: 1;
-    -webkit-text-stroke-width: 4px;
-    -webkit-text-stroke-color: $brown-med;
+@media only screen and (max-width: 1000px) {
+  .page--about {
+    max-width: 600px;
+    padding: 20px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+
+    box-sizing: border-box;
   }
+
+  #me-img-canvas {
+    width: 280px;
+    height: 280px;
+    left: -10px;
+    position: relative;
+    right: unset;
+    top: unset;
+    left: unset;
+    bottom: unset;
+    margin-top: 140px;
+  }
+
+  .background-jumbo-text {
+    bottom: unset;
+    top: 300px;
+    right: 30px;
+    left: unset;
+    font-size: 64px;
+    width: 300px;
+  }
+
+  .text-container {
+    position: relative;
+    transform: none;
+    top: unset;
+    left: unset;
+    margin-top: 32px;
+  }
+
+  .nav {
+    position: absolute;
+    display: flex;
+
+    flex-direction: column;
+    align-items: flex-end;
+
+    :first-child {
+      margin-right: 0;
+    }
+  }
+
+  //    #me-img
 }
+// @supports (-webkit-text-stroke-width: 4px) {
+//   .background-jumbo-text {
+//     color: transparent;
+//     opacity: 1;
+//     -webkit-text-stroke-width: 4px;
+//     -webkit-text-stroke-color: $brown-med;
+//   }
+// }
 </style>

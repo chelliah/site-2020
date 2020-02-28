@@ -1,41 +1,50 @@
 <template>
   <div class="page--my-work">
+    <h1 class="background-jumbo-text left">see my work</h1>
     <div class="nav left short">
-      <internal-link 
-        to="/" 
-        text="Home" 
-        theme="light" 
-        :onHover="hoverHome" 
-        :clearHover="clearHover"/>
-      <internal-link 
-        to="/about" 
-        text="About me" 
-        theme="light" 
-        :onHover="hoverAbout" 
-        :clearHover="clearHover"/>
+      <internal-link
+        to="/"
+        text="Home"
+        theme="light"
+        :onHover="hoverHome"
+        :clearHover="clearHover"
+      />
+      <internal-link
+        to="/about"
+        text="About me"
+        theme="light"
+        :onHover="hoverAbout"
+        :clearHover="clearHover"
+      />
     </div>
     <div class="text-container">
-      <h3 class="right short">My work</h3>
+      <!-- <h3 class="right short">My work</h3> -->
       <p class="left">
-        There are a couple hobby projects I’m especially proud of.
-        <external-link to="https://s3-us-west-2.amazonaws.com/blumhouse-project/index.html" text="Blumhouse" /> is a site i built to practice SVG animations.
-        <external-link to="https://s3.us-east-2.amazonaws.com/shaders-website/index.html#/" text="Shader sketchbook" /> is a vue app I build to easily write and tweak glsl programs.
+        In my free time, I've built a couple projects to explore web animation techniques.
+        <external-link
+          to="https://s3-us-west-2.amazonaws.com/blumhouse-project/index.html"
+          text="Blumhouse"
+        />is a site i built to practice SVG animations.
+        <external-link
+          to="https://s3.us-east-2.amazonaws.com/shaders-website/index.html#/"
+          text="Shader sketchbook"
+        />is a vue app I build to easily write and tweak glsl programs.
       </p>
       <p class="right">
         One client project i’m especially proud of is the
-        <external-link to text="Community ties survey" /> for Knight Foundation. At Fathom Information Design, I served as the lead developer on this project.
+        <external-link to text="Community ties survey" />for Knight Foundation. At Fathom Information Design, I served as the lead developer on this project.
       </p>
       <p class="left">
         In my free time, I like to practice fabric arts. Mostly, this involves making
-        <external-link to text="clothes" /> and
-        <external-link to text="embroidery" /> for friends
+        <external-link to text="clothes" />and
+        <external-link to text="embroidery" />for friends
       </p>
       <p class="left">
-          Feel free to check out my <external-link to="https://github.com/chelliah" text="github"/> or <external-link to ="https://codepen.io/chelliah/" text="codepen"/> if you want to see more.
+        Feel free to check out my
+        <external-link to="https://github.com/chelliah" text="github" />or
+        <external-link to="https://codepen.io/chelliah/" text="codepen" />if you want to see more.
       </p>
     </div>
-
-    <h1 class="background-jumbo-text left">see my work</h1>
   </div>
 </template>
 
@@ -51,17 +60,17 @@ export default {
     InternalLink
   },
   beforeDestroy() {
-      this.clearHover()
+    this.clearHover();
   },
   methods: {
     hoverAbout() {
-        this.setSceneHoverTarget('u_hover_my_work', 1, 0)
+      this.setSceneHoverTarget("u_hover_my_work", 1, 0);
     },
     clearHover() {
-        this.setSceneHoverTarget('u_hover_my_work', 0, 0)
+      this.setSceneHoverTarget("u_hover_my_work", 0, 0);
     },
     hoverHome() {
-        this.setSceneHoverTarget('u_hover_my_work', 0, 1)
+      this.setSceneHoverTarget("u_hover_my_work", 0, 1);
     }
   }
 };
@@ -81,40 +90,54 @@ export default {
 
 .page--my-work {
   // background-color: $green-mint;
-  display: inline-block;
-  overflow: scroll;
+  display: block;
+  overflow: visible;
+  /* max-height: 1000px; */
+  max-width: 1280px;
+  position: relative;
+  margin: auto;
 }
 
 .background-jumbo-text {
   @include agrandir-wide;
   font-style: italic;
-  font-size: 25vw;
-  position: fixed;
-
-line-height: 15vw;
-  bottom: 24px;
-  left: 24px;
-  margin: 0;
-  width: 2400px;
-  z-index: 0;
+  font-size: 90px;
   color: #d4ffde;
-  opacity: 0.7;
+
+  text-transform: uppercase;
+  line-height: 90px;
+
+  position: absolute;
+  bottom: 60px;
+  right: 60px;
+  text-align: right;
+
+  //   left: 24px;
+  margin: 0;
+  width: 400px;
+  z-index: 2;
 }
 
 .text-container {
   width: 100%;
   z-index: 100;
   position: absolute;
-  color: $brown-dark;
+  color: $cream;
   // height: 100%;
-  overflow: scroll;
-  padding-left: 100px;
-  padding-top: 190px;
-  height: 100vh;
+  //   overflow: scroll;
+  //   padding: 100px 20px 0px 100px;
+  // //   padding-top: 150px;
+  //   width: calc(100% - 200px);
+  //   height: 100vh;
   box-sizing: border-box;
+  max-width: 500px;
+
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
 
   * {
-    max-width: 824px;
+    max-width: 560px;
   }
 
   h3 {
@@ -125,7 +148,8 @@ line-height: 15vw;
   }
 
   p {
-    font-size: 36px;
+    font-size: 20px;
+    width: 100%;
   }
 }
 
@@ -205,12 +229,61 @@ line-height: 15vw;
   }
 }
 
-@supports ( -webkit-text-stroke-width: 4px) {
-  .background-jumbo-text {
-      color: transparent;
-      opacity: 1;
-    -webkit-text-stroke-width: 4px;
-    -webkit-text-stroke-color: #d4ffde;
+// @supports ( -webkit-text-stroke-width: 4px) {
+//   .background-jumbo-text {
+//       color: transparent;
+//       opacity: 1;
+//     -webkit-text-stroke-width: 4px;
+//     -webkit-text-stroke-color: #d4ffde;
+//   }
+// }
+
+@media only screen and (max-width: 1000px) {
+  .page--my-work {
+    max-width: 600px;
+    padding: 20px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+
+    box-sizing: border-box;
   }
+
+  .background-jumbo-text {
+    bottom: unset;
+    // top: 300px;
+    // right: 30px;
+    left: unset;
+    font-size: 64px;
+    width: 300px;
+    position: relative;
+    align-self: flex-end;
+
+    right: unset;
+    margin-top: 240px;;
+    right: 0;
+  }
+
+  .text-container {
+    position: relative;
+    transform: none;
+    top: unset;
+    left: unset;
+    margin-top: 32px;
+  }
+
+  .nav {
+    position: absolute;
+    display: flex;
+
+    flex-direction: column;
+    align-items: flex-end;
+
+    :first-child {
+      margin-right: 0;
+    }
+  }
+
+  //    #me-img
 }
 </style>

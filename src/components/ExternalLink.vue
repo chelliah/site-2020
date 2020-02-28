@@ -59,7 +59,7 @@ export default {
 }
 .external-link {
   @include agrandir-wide;
-  font-size: 36px;
+  font-size: 20px;
   font-weight: 600;
   font-style: italic;
   color: transparent;
@@ -76,23 +76,24 @@ export default {
   }
   // text-shadow: 0px 2px 2px $green-mint;
   span {
-    // border: 3px solid #D17F57;
+    // border: 3px solid #D17F57
+    color: $cream;;
     position: relative;
     // text-shadow: 2px 2px 0px #abd387a8;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: #d17f57;
+    // -webkit-text-stroke-color: $green-mint;
 
     &:before {
         content: attr(data-letter);
         position: absolute;
-        left: 0px;
+        left: -3px;
         text-shadow: none;
-        top: -5px;
-        -webkit-text-stroke-color: $brown-light;
+        top: -8px;
+      -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: $cream;
         color: var(--letter-color);
         // color: $green-light;
         // mix-blend-mode: lighten;
-        font-size: 36px;
+        font-size: 24px;
         opacity: 0;
         z-index: 20;
         // z-index: -1;
