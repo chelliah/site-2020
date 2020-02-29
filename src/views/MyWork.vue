@@ -5,14 +5,14 @@
       <internal-link
         to="/"
         text="Home"
-        theme="light"
+        theme="mid"
         :onHover="hoverHome"
         :clearHover="clearHover"
       />
       <internal-link
         to="/about"
         text="About me"
-        theme="light"
+        theme="mid"
         :onHover="hoverAbout"
         :clearHover="clearHover"
       />
@@ -24,25 +24,25 @@
         <external-link
           to="https://s3-us-west-2.amazonaws.com/blumhouse-project/index.html"
           text="Blumhouse"
-        />is a site i built to practice SVG animations.
+        /> is a site i built to practice SVG animations.
         <external-link
           to="https://s3.us-east-2.amazonaws.com/shaders-website/index.html#/"
           text="Shader sketchbook"
-        />is a vue app I build to easily write and tweak glsl programs.
+        /> is a vue app I build to easily write and tweak glsl programs.
       </p>
-      <p class="right">
+      <!-- <p class="right">
         One client project i’m especially proud of is the
-        <external-link to text="Community ties survey" />for Knight Foundation. At Fathom Information Design, I served as the lead developer on this project.
-      </p>
+        <external-link to text="Community ties survey" /> for Knight Foundation. At Fathom Information Design, I served as the lead developer on this project.
+      </p> -->
       <p class="left">
-        In my free time, I like to practice fabric arts. Mostly, this involves making
-        <external-link to text="clothes" />and
-        <external-link to text="embroidery" />for friends
+        In my free time, I like to practice fabric arts. Mostly, this involves making clothes and embroidery for friends.
+        <!-- <external-link to text="clothes" /> and -->
+        <!-- <external-link to text="embroidery" /> for friends -->
       </p>
       <p class="left">
         Feel free to check out my
-        <external-link to="https://github.com/chelliah" text="github" />or
-        <external-link to="https://codepen.io/chelliah/" text="codepen" />if you want to see more.
+        <external-link to="https://github.com/chelliah" text="github" /> or
+        <external-link to="https://codepen.io/chelliah/" text="codepen" /> if you want to see more.
       </p>
     </div>
   </div>
@@ -102,7 +102,7 @@ export default {
   @include agrandir-wide;
   font-style: italic;
   font-size: 90px;
-  color: #d4ffde;
+  color: $green-light;;
 
   text-transform: uppercase;
   line-height: 90px;
@@ -122,7 +122,7 @@ export default {
   width: 100%;
   z-index: 100;
   position: absolute;
-  color: $cream;
+  color: #426149;
   // height: 100%;
   //   overflow: scroll;
   //   padding: 100px 20px 0px 100px;

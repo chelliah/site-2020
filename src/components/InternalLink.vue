@@ -37,7 +37,7 @@ export default {
     isHovering(isHovering) {
         gsap.to(this.$data, .25, {
             ease:Power3.easeOut, 
-            texShadowOffset: isHovering ? '6' : '2'
+            texShadowOffset: isHovering ? '4' : '2'
             // onUpdate:function() {
             //     element5.innerHTML = obj5.value.toFixed(1);
             // }
@@ -46,17 +46,18 @@ export default {
   },
   computed: {
       textShadow() {
-          let color = this.theme == 'light' ? '#639E5D' : '#934A30'
+          let color;
 
           switch(this.theme) {
               case 'light':
-                color = '#ABD387';
+                color = '#934A30';
                 break;
             case 'dark':
                 color = '#DF8C63';
                 break;
             case 'mid':
-                color = '#FFF2D4';
+            default:
+                color = '#426149';
                 break;
           }
 
@@ -66,7 +67,7 @@ export default {
   data() {
       return {
           isHovering: false,
-          texShadowOffset: 1,
+          texShadowOffset: 2,
           className: `agrandir--grand internal-link${this.theme ? ` ${this.theme}` : ''}${this.class ? ` ${this.class}`: ''}`
       }
   }
@@ -80,7 +81,7 @@ export default {
 }
 .internal-link {
     @include agrandir-grand;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 600;
     font-style: italic;
     cursor: pointer;
@@ -93,12 +94,12 @@ export default {
 }
 
 .light {
-    color: $cream;
+    color: $green-mint;
     text-shadow: 1px 1px 0px #934A30, 2px 2px 0px #934A30;
 }
 
 .mid {
-    color: #C08263;
+    color: $cream;
     text-shadow: 1px 1px 0px #934A30, 2px 2px 0px #934A30;
 }
 </style>

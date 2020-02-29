@@ -27,7 +27,7 @@ export default {
     },
     setDataColors() {
         if(this.dataColorsInterval == null) return;
-        if(this.dataColorsInterval % 10 == 0) {
+        if(this.dataColorsInterval % 15 == 0) {
             this.dataColors = this.text.split("").map((letter, index) =>  colors[Math.floor((index + this.dataColorsInterval/10)%(colors.length - 1))])
             
         }
@@ -77,7 +77,7 @@ export default {
   // text-shadow: 0px 2px 2px $green-mint;
   span {
     // border: 3px solid #D17F57
-    color: $cream;;
+    color: $green-light;;
     position: relative;
     // text-shadow: 2px 2px 0px #abd387a8;
     // -webkit-text-stroke-color: $green-mint;
@@ -87,13 +87,11 @@ export default {
         position: absolute;
         left: -3px;
         text-shadow: none;
-        top: -8px;
-      -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: $cream;
+        top: -10px;
         color: var(--letter-color);
         // color: $green-light;
         // mix-blend-mode: lighten;
-        font-size: 24px;
+        font-size: 26px;
         opacity: 0;
         z-index: 20;
         // z-index: -1;
@@ -101,13 +99,24 @@ export default {
   }
 }
 
-.dark {
+@supports(-webkit-text-stroke: 2px) {
+  .external-link span:before {
+
+    top: -8px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: $green-light;
+    font-size: 24px;
+  }
+}
+.external-link.dark {
   color: $brown-dark;
   text-shadow: 0px 0px 0px #934a30, 0px 0px 0px #934a30;
 }
 
-.light {
+.external-link.light {
   color: $cream;
   text-shadow: 0px 0px 0px #934a30, 0px 0px 0px #934a30;
 }
+
+
 </style>

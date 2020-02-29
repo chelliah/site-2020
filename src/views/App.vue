@@ -35,6 +35,7 @@ export default {
       sandbox: null,
       canvas: null,
       timer: 0,
+      resizeTimeout: null,
       uniforms: {
         moon_rows: 0,
         moon_columns: 0,
@@ -66,45 +67,69 @@ export default {
   mounted() {
     this.canvas = document.getElementById("bg-animation-canvas");
 
-    console.log(window.innerWidth, window.innerHeight);
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
+
+    console.log(window.innerWidth, window.innerHeight);
+
     this.sandbox = new GlslCanvas(this.canvas);
+
     this.sandbox.load(glslify(fragmentShader));
 
+    this.setSize();
     this.setUniforms();
 
-    window.addEventListener("resize", () => {
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerHeight;
-      // this.sandbox.load(glslify(fragmentShader));
-      // this.setUniforms();
-    });
+    // let setSize = this.setSize.bind(this);
 
-    window.addEventListener("mousemove", e => {
-      // console.log(e.clientX, e.clientY);
-      this.uniforms.u_mouse.x = e.clientX;
+    window.addEventListener("resize", this.setSize.bind(this));
 
-      this.uniforms.u_mouse.y = e.clientY;
-    });
+    window.addEventListener("mousemove", this.setMouse.bind(this));
 
     this.setSceneIndex(this.$route);
     // this.sandbox.load(string_frag_code, string_vert_code)
   },
   methods: {
+    setMouse(e) {
+      window.requestAnimationFrame(() => {
+        this.uniforms.u_mouse.x = e.clientX;
+
+        this.uniforms.u_mouse.y = e.clientY;
+      })
+    },
+    setSize() {
+      // window.removeEventListener("resize", this.setSize.bind(this));
+      window.requestAnimationFrame(() => {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+
+        this.sandbox.setUniform(
+          "uResolution",
+          window.innerWidth,
+          window.innerHeight
+        );
+      });
+      // window.addEventListener("resize", this.setSize.bind(this));
+
+
+      // this.setUniforms();
+
+      // window.removeEventListener("resize", this.setSize.bind(this))
+      // window.removeEventListener("mousemove", this.setMouse.bind(this))
+    },
     setUniforms() {
+      // this.canvas.width = window.innerWidth;
+      // this.canvas.height = window.innerHeight;
+
       let moon_size = 30;
       this.uniforms.moon_rows = Math.floor(this.canvas.height / moon_size);
       this.uniforms.moon_columns = Math.floor(this.canvas.width / moon_size);
 
-      this.timer += 1/40;
+      // console.log(this.canvas.width, this.canvas.height, this.uniforms.u_mouse.x, this.uniforms.u_mouse.y)
+      this.timer += 1 / 40;
       // if(this.timer == 0) {
       //   console.log('hmmm');
       // }
-      this.sandbox.setUniform(
-        'uTime',
-        Math.abs((this.timer % (60 * 2)) - 60)
-      )
+      this.sandbox.setUniform("uTime", Math.abs((this.timer % (60 * 2)) - 60));
       this.sandbox.setUniform(
         "moon_grid",
         this.uniforms.moon_columns,
@@ -141,13 +166,12 @@ export default {
       // console.log(this.sandbox.uniforms.u_mouse_pos && this.sandbox.uniforms.u_mouse_pos.value);
       //
       // console.log(this.sandbox.uniforms.u_mouse && this.sandbox.uniforms.u_mouse.value);
-      this.sandbox.setUniform(
-        "u_resolution",
-        this.canvas.width,
-        this.canvas.height
-      );
+
       // console.log(this.sandbox.uniforms.u_scene)
-      requestAnimationFrame(this.setUniforms);
+      // if(!this.resizeTimeout) {
+
+      requestAnimationFrame(this.setUniforms.bind(this));
+      // }
     },
     setSceneIndex(route) {
       let page = route.name;
@@ -213,7 +237,7 @@ export default {
       }
     },
     setSceneHoverTarget(hover_page, x, y) {
-      let ease = (x == 0 && y == 0) ? Power1.easeOut : Power1.easeIn;
+      let ease = x == 0 && y == 0 ? Power1.easeOut : Power1.easeIn;
       gsap.to(
         this.$data.uniforms[hover_page],
         0.5,

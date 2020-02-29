@@ -50,10 +50,10 @@ export default {
 <style lang="scss">
 #hi-title {
  font-weight: 300;
- font-size: 120px;
-     position: absolute;
-    top: 15vh;
-    left: 20%;
+ font-size: 64px;
+margin-top: 20%;
+margin-bottom: 8px;
+    line-height: 60px;
     transition-delay: 0.3s;
   transition: opacity 0.75s ease-out, transform 0.5s ease-out;
 }
@@ -61,14 +61,7 @@ export default {
 #subtitle {
     font-weight: 400;
     font-size: 32px;
-    position: absolute;
-    top: 200px;
-    /* font-weight: 300; */
-    /* font-size: 120px; */
-    position: absolute;
-    top: 40vh;
-    left: 20%;
-
+    margin: 16px 0 32px;
   transition: opacity 0.6s ease-out, transform 0.4s ease-out;
     transition-delay: .15s;
 
@@ -76,23 +69,26 @@ export default {
 
 .page--home {
     // background-color: $brown-light;
-    display: inline-block;
+    // display: inline-block;
+    display: block;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
     
 }
 
 #home-link--about {
-    position: absolute;
-    top: 60vh;
-    left: 20%;
+  margin-bottom: 20px;
+  margin-right: 32px;
 
   transition: opacity 0.7s ease-out, transform 0.3s ease-out;
     transition-delay: 0.3s;
 }
 
 #home-link--my-work {
-    position: absolute;
-    left: 60%;
-    top: 60vh;
+
   transition: opacity 0.6s ease-out, transform 0.4s ease-out;
     transition-delay: 0.2s;
 
@@ -142,5 +138,20 @@ export default {
       transform: translate(30px, 0);
   }
 
+}
+
+@media only screen and (max-width: 600px) {
+  #hi-title {
+    line-height: 60px;
+    margin-bottom: 8px;
+    margin-top: 30%;
+  }
+  #subtitle {
+    font-size: 24px;
+  }
+
+  a {
+    font-size: 24px !important;
+  }
 }
 </style>

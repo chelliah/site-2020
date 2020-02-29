@@ -16,14 +16,14 @@
       <!-- <h3 class="right short">About me</h3> -->
       <p
         class="left"
-      >My name is Erin, my pronouns are she/her. I grew up in Massachusetts but as of this year am lucky to be moving to Chicago. I’m trans and brown and a taurus moon. I’ve worked as a developer for about four years.</p>
+      >My name is Erin, my pronouns are she/her. I grew up in Massachusetts but as of this year am lucky to be moving to Chicago. I’m trans, brown, and a taurus moon. I’ve worked as a developer for about four years.</p>
       <p class="left">In my free time I love to watch movies, sew, bike around and practice yoga.</p>
       <p class="right">
         Check out my
         <external-link
           to="https://docs.google.com/document/d/1BJSWUPeHcoZi2GXuHpamZx9e6Ig2uDu9cjZe5xkGh4I/edit?usp=sharing"
           text="CV"
-        />or get in contact with me at
+        /> or get in contact with me at
         <external-link to="mailto:erin.c.tho@gmail.com" text="erin.c.tho@gmail.com" />.
       </p>
     </div>
@@ -65,6 +65,8 @@ export default {
   },
   beforeDestroy() {
     this.clearHover();
+    window.removeEventListener("resize", this.checkForWidth.bind(this));
+
     window.removeEventListener("mousemove", this.setMouseMove.bind(this));
   },
   methods: {
@@ -87,14 +89,11 @@ export default {
       this.u_canvas_pos.y = top;
     },
     setUniforms() {
-      this.timer += 1/40;
+      this.timer += 1 / 40;
       // if(this.timer == 0) {
       //   console.log('hmmm');
       // }
-      this.sandbox.setUniform(
-        'uTime',
-        Math.abs((this.timer % (60 * 2)) - 60)
-      )
+      this.sandbox.setUniform("uTime", Math.abs((this.timer % (60 * 2)) - 60));
       this.sandbox.setUniform(
         "u_mouse_pos",
         this.u_mouse.x - this.u_canvas_pos.x,
@@ -123,16 +122,26 @@ export default {
       );
       this.sandbox.setUniform("u_texture", this.me);
       requestAnimationFrame(this.setUniforms);
+    },
+    checkForWidth() {
+      if (window.innerWidth < 1000) {
+        this.canvas.width = 300;
+        this.canvas.height = 300;
+      } else {
+        this.canvas.width = 400;
+        this.canvas.height = 400;
+      }
     }
   },
   mounted() {
     this.canvas = document.getElementById("me-img-canvas");
-    this.canvas.width = 400;
-    this.canvas.height = 400;
+    this.checkForWidth();
 
     window.addEventListener("mousemove", this.setMouseMove.bind(this));
     this.sandbox = new GlslCanvas(this.canvas);
     this.sandbox.load(glslify(fragmentShader));
+
+    window.addEventListener("resize", this.checkForWidth.bind(this));
 
     this.setUniforms();
   }
@@ -165,7 +174,8 @@ export default {
   @include agrandir-wide;
   font-style: italic;
   font-size: 90px;
-  color: $brown-med;
+  color: $green-light;
+//   opacity: 0.5;
 
   text-transform: uppercase;
   line-height: 90px;
