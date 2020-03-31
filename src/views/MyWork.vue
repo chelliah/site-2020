@@ -22,11 +22,11 @@
       <p class="left">
         In my free time, I've built a couple projects to explore web animation techniques.
         <external-link
-          to="https://s3-us-west-2.amazonaws.com/blumhouse-project/index.html"
+          to="https://blumhouse.erincthomas.com"
           text="Blumhouse"
         /> is a site i built to practice SVG animations.
         <external-link
-          to="https://s3.us-east-2.amazonaws.com/shaders-website/index.html#/"
+          to="https://shaders.erincthomas.com"
           text="Shader sketchbook"
         /> is a vue app I build to easily write and tweak glsl programs.
       </p>

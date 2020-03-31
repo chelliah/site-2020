@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 (function () {
     window.mobilecheck = function () {
         var check = false;

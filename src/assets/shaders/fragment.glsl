@@ -254,7 +254,7 @@ vec3 draw_moons(in vec2 st){
     
     if(modX==0.&&modY==0.){
         
-        st=rotate2D(st,PI/4.*7. - uTime/2.);
+        st=rotate2D(st,PI/4.*7. - uTime/3.);
     }else if(modX==1.&&modY==0.){
         st=rotate2D(st,PI/4.*3.);
     }else if(modX==0.&&modY==1.){
