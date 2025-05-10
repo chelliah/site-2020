@@ -49,7 +49,7 @@
       </p> -->
       <p class="left">
         In my free time, I like to make electronic music. You can check out my music on
-        <external-link to="https://github.com/chelliah" text="bandcamp" />.
+        <external-link to="https://chelliah.bandcamp.com/" text="bandcamp" />.
         <!-- <external-link to text="embroidery" /> for friends -->
       </p>
       <p class="left">
