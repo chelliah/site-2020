@@ -16,7 +16,7 @@
       <!-- <h3 class="right short">About me</h3> -->
       <p
         class="left"
-      >My name is Erin (she/her) based out of Chicago, Illinois. I am a software engineer specializing in web development, information design, serverless computing, and data analysis. I am currently serving as the Technology Director at Data for Progress, where I work to build tools to power the progressive movement.</p>
+      >My name is Erin (she/her), I'm a softwear engineer based out of Chicago, Illinois. I specialize in web development, information design, serverless computing, and data analysis. I am currently serving as the Technology Director at Data for Progress, where I work to build tools to power the progressive movement.</p>
       <p class="left">In my free time I love to watch movies, make music, bike around and practice yoga.</p>
       <p class="right">
         Check out my
