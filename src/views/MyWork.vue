@@ -20,7 +20,20 @@
     <div class="text-container">
       <!-- <h3 class="right short">My work</h3> -->
       <p class="left">
-        In my free time, I've built a couple projects to explore web animation techniques.
+        My data visualization work has been featured across the web.
+        <external-link
+          to="https://www.dataforprogress.org/accountable-allies"
+          text="Accountable Allies"
+        /> is a series of projects at I completed at Data for Progress that highlighted the ways progressive institutions are beholden to conservative corporate interests.
+        <external-link
+          to="https://knightfoundation.org/features/community-ties/"
+          text="Community Ties"
+        /> is a project I completed at Fathom Information Design in partnership with the Knight Foundation. The project explored the factors that build affinity between individuals and the cities they live in. 
+      </p>  
+
+      
+      <p class="left">
+        Additionally, I've built a couple projects to explore web animation techniques.
         <external-link
           to="https://blumhouse.erincthomas.com"
           text="Blumhouse"
@@ -35,8 +48,8 @@
         <external-link to text="Community ties survey" /> for Knight Foundation. At Fathom Information Design, I served as the lead developer on this project.
       </p> -->
       <p class="left">
-        In my free time, I like to practice fabric arts. Mostly, this involves making clothes and embroidery for friends.
-        <!-- <external-link to text="clothes" /> and -->
+        In my free time, I like to make electronic music. You can check out my music on
+        <external-link to="https://github.com/chelliah" text="bandcamp" />.
         <!-- <external-link to text="embroidery" /> for friends -->
       </p>
       <p class="left">

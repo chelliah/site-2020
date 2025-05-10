@@ -16,12 +16,12 @@
       <!-- <h3 class="right short">About me</h3> -->
       <p
         class="left"
-      >My name is Erin, my pronouns are she/her. I grew up in Massachusetts but as of this year am lucky to be moving to Chicago. I’m trans, brown, and a taurus moon. I’ve worked as a developer for about four years.</p>
-      <p class="left">In my free time I love to watch movies, sew, bike around and practice yoga.</p>
+      >My name is Erin (she/her) based out of Chicago, Illinois. I am a software engineer specializing in web development, information design, serverless computing, and data analysis. I am currently serving as the Technology Director at Data for Progress, where I work to build tools to power the progressive movement.</p>
+      <p class="left">In my free time I love to watch movies, make music, bike around and practice yoga.</p>
       <p class="right">
         Check out my
         <external-link
-          to="https://docs.google.com/document/d/1BJSWUPeHcoZi2GXuHpamZx9e6Ig2uDu9cjZe5xkGh4I/edit?usp=sharing"
+          to="https://docs.google.com/document/d/1xo52bz66xa9pdanq-hV03-JLbNu86mcYSCgWaPcXiU4"
           text="CV"
         /> or get in contact with me at
         <external-link to="mailto:erin.c.tho@gmail.com" text="erin.c.tho@gmail.com" />.
