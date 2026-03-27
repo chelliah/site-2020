@@ -120,7 +120,7 @@ export default {
       // this.canvas.width = window.innerWidth;
       // this.canvas.height = window.innerHeight;
 
-      let moon_size = 30;
+      let moon_size = 35;
       this.uniforms.moon_rows = Math.floor(this.canvas.height / moon_size);
       this.uniforms.moon_columns = Math.floor(this.canvas.width / moon_size);
 
@@ -216,7 +216,26 @@ export default {
           this.uniforms.u_scene = 2;
         });
         return 2;
-      } else {
+      } else if (page.indexOf("epk") >= 0) {
+        gsap.to(
+          this.$data.uniforms.u_scene_transition,
+          SCENE_TRANSITION_TIME,
+          {
+            ease,
+            x: 0,
+            y: 1,
+            z: 0
+          },
+          0.2
+        );
+
+        gsap.delayedCall(SCENE_TRANSITION_TIME, () => {
+          console.log("setting epk!");
+          this.uniforms.u_scene = 2;
+        });
+        return 2;
+      }
+      else {
         gsap.to(
           this.$data.uniforms.u_scene_transition,
           SCENE_TRANSITION_TIME,

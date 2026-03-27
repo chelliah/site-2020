@@ -1,6 +1,6 @@
 <template>
   <div class="external-link--container" v-on:mouseover="setHover" v-on:mouseleave="clearHover">
-    <a :class="className"  :href="to" target="_blank">
+    <a :class="className"  :href="to" target="_blank" :aria-label="text">
       <span v-for="(letter, index) in textArray" :key="index" :data-letter="letter" :style="`--letter-color: ${dataColors[index]};`">{{letter}}</span>
     </a>
   </div>
@@ -27,7 +27,7 @@ export default {
     },
     setDataColors() {
         if(this.dataColorsInterval == null) return;
-        if(this.dataColorsInterval % 15 == 0) {
+        if(this.dataColorsInterval % 25 == 0) {
             this.dataColors = this.text.split("").map((letter, index) =>  colors[Math.floor((index + this.dataColorsInterval/10)%(colors.length - 1))])
             
         }
@@ -43,7 +43,7 @@ export default {
     return {
       isHovering: false,
       //   texShadowOffset: 0,
-      className: `external-link`,
+      className: `external-link ${this.theme}`,
       textArray: this.text.split(""),
       dataColorsInterval: null,
       dataColors: this.text.split("").map(() => "transparent")
@@ -108,8 +108,8 @@ export default {
     font-size: 24px;
   }
 }
-.external-link.dark {
-  color: $brown-dark;
+.external-link.dark span {
+  color: $green-dark;
   text-shadow: 0px 0px 0px #934a30, 0px 0px 0px #934a30;
 }
 

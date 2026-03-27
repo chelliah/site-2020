@@ -48,7 +48,8 @@
         <external-link to text="Community ties survey" /> for Knight Foundation. At Fathom Information Design, I served as the lead developer on this project.
       </p> -->
       <p class="left">
-        In my free time, I like to make electronic music. You can check out my music on
+        In my free time, I like to make electronic music. View my <internal-link to="/epk" 
+        text="EPK" theme="mid"/> or check out my music on
         <external-link to="https://chelliah.bandcamp.com/" text="bandcamp" />.
         <!-- <external-link to text="embroidery" /> for friends -->
       </p>

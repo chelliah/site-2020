@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home'
 import MyWork from './views/MyWork'
 import About from './views/About'
+import EPK from './views/EPK.vue'
 
 Vue.use(Router)
 
@@ -34,8 +35,18 @@ export const routes = [
       label: 'My Work'
     }
   },
+  {
+    path: '/epk',
+    name: 'epk',
+    className: 'epk',
+    component: EPK,
+    props: {
+      label: 'EPK'
+    }
+  },
 ]
 
 export default new Router({
+  mode: 'history', // This activates HTML5 history mode
   routes
 })

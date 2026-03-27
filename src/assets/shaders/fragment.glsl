@@ -65,6 +65,7 @@ float noise(in vec2 st){
     (d-b)*u.x*u.y;
 }
 
+
 float circle(in vec2 _st,in float _radius){
     vec2 dist=_st-vec2(.5);
     return 1.-smoothstep(_radius-(_radius*.01),
@@ -112,7 +113,7 @@ float circle_dist(in vec2 _st, in float _radius) {
 
 
 vec3 draw_checkerboard(in vec2 st) {
-      st *= 8.;
+    st *= 8.;
 //   st.x += 14.4124;
   st *= 2.;
   //st.y += 16.;
@@ -253,16 +254,19 @@ vec3 draw_moons(in vec2 st){
     float modY=mod(flr.y,2.);// 0 or 1;
     
     if(modX==0.&&modY==0.){
-        
         st=rotate2D(st,PI/4.*7. - uTime/3.);
     }else if(modX==1.&&modY==0.){
-        st=rotate2D(st,PI/4.*3.);
+        st=rotate2D(st,PI/4.*3. + uTime/4.3 );
     }else if(modX==0.&&modY==1.){
-        st=rotate2D(st,PI/4.*5.);
+        st=rotate2D(st,PI/4.*5. + uTime/20.);
     }else if(modX==1.&&modY==1.){
         st=rotate2D(st,PI/4.  + uTime/2.);
+    } else {
+         st=rotate2D(st,PI/3.  + uTime/3.);
     }
     float nz=noise((flr)/5.+uTime/20.)+noise((flr)*32.+uTime/18.);
+    float nz2=noise((ipos)/50.+uTime/10.)+noise((flr)*2.+uTime/9.);
+    st.x += min(nz,nz2)/10.;
 
 
     float circ_1=circle(st,.5);
@@ -327,6 +331,7 @@ vec3 render_my_work_scene(in vec2 st) {
 
     return color;
 }
+
 
 vec3 render_scene_main(in vec2 st) {
     vec2 u_mouse = vec2(u_mouse_pos.x, uResolution.y - u_mouse_pos.y);

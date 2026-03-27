@@ -1,7 +1,8 @@
 <template>
   <div class="page--home">
       <h1 id="hi-title" class="agrandir--grand">hi. im erin.</h1>
-      <h3 id="subtitle" class="agrandir--grand">I like to make things, <br/> mostly with code</h3>
+      <h3 id="subtitle" class="agrandir--grand">I like to make things <br/> with computers</h3>
+      <h3 id="subtitle" class="agrandir--grand">I make and perform music as chelliah</h3>
       <div id="home--links-container">
           <internal-link 
             to='/about' 
@@ -17,7 +18,13 @@
             :onHover="hoverMyWork"
             :clearHover="clearHover"
             id='home-link--my-work'/>
-
+          <internal-link 
+            to='/epk' 
+            text="EPK" 
+            theme="dark" 
+            :onHover="hoverMyWork"
+            :clearHover="clearHover"
+            id='home-link--epk'/>
       </div>
   </div>
 </template>
@@ -86,8 +93,11 @@ margin-bottom: 8px;
   transition: opacity 0.7s ease-out, transform 0.3s ease-out;
     transition-delay: 0.3s;
 }
-
 #home-link--my-work {
+  margin-right: 32px;
+}
+
+#home-link--my-work, #home-link--epk{
 
   transition: opacity 0.6s ease-out, transform 0.4s ease-out;
     transition-delay: 0.2s;
@@ -96,7 +106,7 @@ margin-bottom: 8px;
 
 .page--home.toggle-slide-enter-active {
 //   transition-delay: 0.5s;
-  #home-link--my-work, #home-link--about, #hi-title, #subtitle {
+  #home-link--my-work, #home-link--epk, #home-link--about, #hi-title, #subtitle {
       transform: translate(0, 0);
         opacity: 1;
   }
@@ -105,16 +115,22 @@ margin-bottom: 8px;
 .page--home.toggle-slide-enter-active, .toggle-slide-leave-active {
 //   transition: transform .7s, opacity 0.7s;
 }
+// #home-link--my-work, #home-link--epk, #home-link--about {
+//   &:hover {
+//     border-bottom: 2px solid black;
+//     text-decoration: underline;
+//   }
+// }
 
 .page--home.toggle-slide-enter {
-  #home-link--my-work, #home-link--about, #hi-title, #subtitle {
+  #home-link--my-work, #home-link--epk, #home-link--about, #hi-title, #subtitle {
      
      opacity: 0;
   }
    #home-link--about, #hi-title {
        transform: translate(60px, 0);
   }
-  #home-link--my-work, #subtitle {
+  #home-link--my-work, #home-link--epk, #subtitle {
       transform: translate(-30px, 0);
   }
 }
@@ -127,14 +143,14 @@ margin-bottom: 8px;
     #home-link--about {
         transition-delay: 0.15s;
     }
-  #home-link--my-work, #home-link--about, #hi-title, #subtitle {
+  #home-link--my-work, #home-link--epk, #home-link--about, #hi-title, #subtitle {
      
      opacity: 0;
   }
   #home-link--about, #hi-title {
        transform: translate(-60px, 0);
   }
-  #home-link--my-work, #subtitle {
+  #home-link--my-work, #home-link--epk, #subtitle {
       transform: translate(30px, 0);
   }
 
