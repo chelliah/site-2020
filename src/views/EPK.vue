@@ -23,19 +23,10 @@
       <p >
         <em>chelliah</em> is the moniker for Chicago based electronic musician Erin Thomas. She creates techno, electronica, and ambient music that is intricate, textured, and melodic. Influenced by artists like Daphni, Perfume, and Floating Points, and drawing from her background in software engineering, she approaches modular synthesis as a space where technology and artistic expression meet.
       </p>  
-      <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2167598315/size=large/bgcol=333333/linkcol=fe7eaf/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://chelliah.bandcamp.com/album/an-oceanic-feeling-2">an oceanic feeling by chelliah</a></iframe>
-
-      <div>
-        <a class="social-link social-link-instagram" href="https://www.instagram.com/chelliahhh/?hl=en" target="_blank" title="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" width="38.2" height="38.192" viewBox="0 0 38.2 38.192">
-                <path id="Icon_awesome-instagram" data-name="Icon awesome-instagram" d="M19.1,11.542a9.792,9.792,0,1,0,9.792,9.792A9.776,9.776,0,0,0,19.1,11.542Zm0,16.158a6.366,6.366,0,1,1,6.366-6.366A6.378,6.378,0,0,1,19.1,27.7ZM31.576,11.141a2.284,2.284,0,1,1-2.284-2.284A2.279,2.279,0,0,1,31.576,11.141Zm6.485,2.318c-.145-3.059-.844-5.769-3.085-8s-4.943-2.932-8-3.085c-3.153-.179-12.6-.179-15.757,0-3.051.145-5.761.844-8,3.076s-2.932,4.943-3.085,8c-.179,3.153-.179,12.6,0,15.757.145,3.059.844,5.769,3.085,8s4.943,2.932,8,3.085c3.153.179,12.6.179,15.757,0,3.059-.145,5.769-.844,8-3.085s2.932-4.943,3.085-8c.179-3.153.179-12.6,0-15.749ZM33.987,32.591a6.445,6.445,0,0,1-3.63,3.63c-2.514,1-8.48.767-11.258.767s-8.752.222-11.258-.767a6.445,6.445,0,0,1-3.63-3.63c-1-2.514-.767-8.48-.767-11.258s-.222-8.752.767-11.258a6.445,6.445,0,0,1,3.63-3.63c2.514-1,8.48-.767,11.258-.767s8.752-.222,11.258.767a6.445,6.445,0,0,1,3.63,3.63c1,2.514.767,8.48.767,11.258S34.984,30.086,33.987,32.591Z" transform="translate(0.005 -2.238)" fill="#fff"></path>
-            </svg>
-        </a>
-        <a>
-                    <svg fill="none" height="38.2" viewBox="250 250 550 550" width="38.2" xmlns="http://www.w3.org/2000/svg"><rect height="760" rx="136.5" stroke="url(#paint0_linear)" stroke-width="27" width="760" x="157.5" y="159.5"/><path d="M667.041 338.5C674.374 337.167 680.874 338.833 686.541 343.5C692.208 348.167 695.041 354.167 695.041 361.5V618C695.041 641.667 688.374 660.167 675.041 673.5C661.708 686.5 643.374 693 620.041 693C604.041 693 590.874 688.833 580.541 680.5C570.208 671.833 565.041 661 565.041 648C565.041 631.667 571.541 618 584.541 607C597.541 596 614.374 590.5 635.041 590.5C642.708 590.5 650.874 591.833 659.541 594.5C659.874 594.5 660.208 594.333 660.541 594C660.874 594 661.041 593.833 661.041 593.5V428.5C661.041 427.5 660.541 426.667 659.541 426C658.541 425 657.541 424.667 656.541 425L469.041 461C466.374 461.667 465.041 463.333 465.041 466V668C465.041 691.667 458.374 710.167 445.041 723.5C431.708 736.5 413.374 743 390.041 743C374.041 743 360.874 738.667 350.541 730C340.208 721.667 335.041 711 335.041 698C335.041 681.667 341.541 668 354.541 657C367.541 646 384.374 640.5 405.041 640.5C412.708 640.5 420.874 641.833 429.541 644.5C429.874 644.5 430.208 644.333 430.541 644C430.874 644 431.041 643.833 431.041 643.5V411.5C431.041 403.167 433.541 395.833 438.541 389.5C443.874 382.833 450.541 378.833 458.541 377.5L667.041 338.5Z" fill="#fff"/></svg>
-
-        </a>
-      </div>
+      <p>
+        Her debut album, <em>an oceanic feeling</em>, presents eight tracks of bright and glitchy techno, fluttering between musical styles and stacking layers of modular sequences into a rich electronic tapestry. 
+      </p>
+      <iframe style="border: 0; width: 400px; height: 120px; margin: 0 calc(50% - 200px);" src="https://bandcamp.com/EmbeddedPlayer/album=2167598315/size=large/bgcol=333333/linkcol=fe7eaf/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://chelliah.bandcamp.com/album/an-oceanic-feeling-2">an oceanic feeling by chelliah</a></iframe>
       <h4>solo performances</h4>
       <ul>
         <li>04-04-2026 - So Ambient @ Podlasie</li>
@@ -48,6 +39,14 @@
      <ul>
         <li><external-link theme="dark" to="https://www.instagram.com/p/DRm9Hp8D8xc/" text="Threshold" /> - A night of ritual performance and dance on the Winter Solstice, combining drag, visual art, and music.</li>
         <li><external-link theme="dark" to="https://romansusan.org/my-father-s-imagination" text="My Father's Imagination" /> - A collaboration combining time-based, lens-based and choreographic practices with impressionistic sound design. </li>
+      </ul>
+      <h4>links</h4>
+     <ul>
+        <li><external-link theme="dark" to="https://www.instagram.com/p/DRm9Hp8D8xc/" text="Instagram" /></li>
+        <li><external-link theme="dark" to="https://music.apple.com/us/artist/chelliah/1616195634" text="Apple Music" /></li>
+        <li><external-link theme="dark" to="https://chelliah.bandcamp.com" text="Bandcamp" /></li>
+        <li><external-link theme="dark" to="https://soundcloud.com/chelliah" text="Soundcloud" /></li>
+        <li><external-link theme="dark" to="mailto:chelliahsmusic@gmail.com" text="Email" /></li>
       </ul>
     </div>
   </div>
